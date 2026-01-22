@@ -1,8 +1,8 @@
-<form action="/create" method="POST">
+<form action="/create" method="POST" @click.away="fmodal = ''">
     @csrf
     <div class="grid grid-cols-2 gap-3 space-y-3">
         <div class="space-y-1">
-            <label for="serial_number" class="block  text-sm font-medium text-start">Serial Number</label>
+            <label for="serial_number" class="block text-sm font-medium text-start">Serial Number</label>
             <input type="text" id="serial_number" name="serial_number" class="border border-gray-300 rounded-md p-2" required />
         </div>
         <div class="space-y-1">
