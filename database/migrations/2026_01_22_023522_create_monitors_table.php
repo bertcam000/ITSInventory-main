@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('serial_number')->unique();
             $table->string('brand');
+            $table->string('model')->nullable();
             $table->string('size');
             $table->enum('status', ['available', 'assigned', 'repair', 'retired'])->default('available');
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

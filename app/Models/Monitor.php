@@ -9,4 +9,6 @@ class Monitor extends Model
 {
     /** @use HasFactory<\Database\Factories\MonitorFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
 }

@@ -2,42 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
-use App\Models\SystemUnit;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class ItemCreationController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Department::query()->with(['PcAssignments']);
+
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        $departments = $query->paginate(10)->withQueryString();
+        return view('department.index', compact('departments'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-
-        $request->validate([
-            'serial_number' => ['required', 'unique:system_units,serial_number'],
-            'brand' => ['required'],
-            'specs' => ['required'],
-            'status' => ['required']
-        ]);
-
-        $qrCode = QrCode::size(300)->generate($request->serial_number);
-        SystemUnit::create([
-            'serial_number' => $request->serial_number,
-            'brand' => $request->brand,
-            'specs' => $request->specs,
-            'status' => $request->status
-        ]);
-
-        return view('qrcode', compact('qrCode'))->with('msg', 'Item Created Successfully');
+        //
     }
 
     /**
