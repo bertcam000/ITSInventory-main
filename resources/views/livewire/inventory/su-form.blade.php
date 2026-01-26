@@ -59,7 +59,7 @@ new class extends Component {
     
 }; ?>
 
-<div @click.away="fmodal === ''" class="bg-white text-center p-5 space-y-4 rounded-lg w-[90%] lg:w-auto">
+{{-- <div @click.away="fmodal === ''" class="bg-white text-center p-5 space-y-4 rounded-lg w-[90%] lg:w-auto">
     <div class="text-xl">Add System Unit</div>
     <div class="flex items-center gap-5">
         <form wire:submit.prevent="submit" @click.away="fmodal = ''">
@@ -99,11 +99,6 @@ new class extends Component {
                 </div>
             </div>
             <div>
-                {{-- <div class="space-y-1">
-                    <label for="specs" class="block mb-2.5 text-sm font-medium text-start">Specs</label>
-                    <textarea wire:model="specs" id="specs" rows="4" name="specs" class="border border-gray-300 rounded-md border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full p-3.5 shadow-xs placeholder:text-body @error('specs') border-red-500 @enderror" placeholder="Write specs here..."></textarea>
-                    <x-input-error :messages="$errors->get('specs')" class="mt-2" />
-                </div> --}}
                 <div class="space-y-1 mt-2 grid grid-cols-2 items-center gap-2">
                     <div>
                         <label for="status" class="block text-sm font-medium text-start">Status</label>
@@ -130,4 +125,48 @@ new class extends Component {
             <button type="submit" class="w-full bg-gray-300 mt-2 py-2 px-2 rounded-md">Create Item</button>
         </form>
     </div>
+</div> --}}
+
+<div  class="fixed inset-0 bg-black/30 flex items-center justify-center px-4">
+    <div @click.away="fmodal = ''" class="w-full max-w-lg bg-white rounded-xl border border-gray-100 p-6">
+        <h2 class="text-lg font-semibold text-gray-900">Add Asset</h2>
+        <p class="text-sm text-gray-400 mt-1 mb-6">Enter hardware information below.</p>
+        <form class="space-y-5" wire:submit.prevent="submit">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input wire:model="serial_number" type="text" placeholder="Serial Number"class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('serial_number') border-red-500 @enderror" />
+                {{-- <x-input-error :messages="$errors->get('serial_number')" class="mt-2" /> --}}
+                <input wire:model="brand" type="text" placeholder="Brand" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('brand') border-red-500 @enderror" />
+                {{-- <x-input-error :messages="$errors->get('brand')" class="mt-2" /> --}}
+                <input wire:model="model" type="text" placeholder="Model" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('model') border-red-500 @enderror" />
+                {{-- <x-input-error :messages="$errors->get('model')" class="mt-2" /> --}}
+                <input type="text" placeholder="Processor" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('serial_number') border-red-500 @enderror" />
+                {{-- <x-input-error :messages="$errors->get('serial_number')" class="mt-2" /> --}}
+                <input wire:model="memory" type="text" placeholder="Memory" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('memory') border-red-500 @enderror" />
+                {{-- <x-input-error :messages="$errors->get('memory')" class="mt-2" /> --}}
+                <input wire:model="storage" type="text" placeholder="Storage" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('storage') border-red-500 @enderror" />
+                {{-- <x-input-error :messages="$errors->get('storage')" class="mt-2" /> --}}
+                <input wire:model="videocard" type="text" placeholder="Video Card" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 sm:col-span-2 @error('videocard') border-red-500 @enderror" />
+                {{-- <x-input-error :messages="$errors->get('videocard')" class="mt-2" /> --}}
+                <select wire:model="status" class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('status') border-red-500 @enderror">
+                    <option value="">Status</option>
+                    <option value="available">Available</option>
+                    <option value="assigned">Assigned</option>
+                    <option value="repair">Repair</option>
+                    <option value="retired">Retired</option>
+                </select>
+                {{-- <x-input-error :messages="$errors->get('status')" class="mt-2" /> --}}
+                <select wire:model="asset_type" class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('asset_type') border-red-500 @enderror">
+                    <option value="">Asset Type</option>
+                    <option value="system_unit">System Unit</option>
+                    <option value="laptop">Laptop</option>
+                </select>
+                {{-- <x-input-error :messages="$errors->get('asset_type')" class="mt-2" /> --}}
+            </div>
+            <div class="flex justify-end gap-3 pt-4">
+                <button type="button" class="px-4 py-2 text-sm rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 transition">Cancel</button>
+                <button type="submit" class="px-4 py-2 text-sm rounded-md bg-gray-900 text-white hover:bg-gray-800 transition">Save</button>
+            </div>
+        </form>
+    </div>
 </div>
+
