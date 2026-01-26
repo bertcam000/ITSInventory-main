@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PcAssignment;
 use Illuminate\Http\Request;
 
 class PcAssignmentController extends Controller
@@ -9,9 +10,16 @@ class PcAssignmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('assigned_pc.index');
+        $query = PcAssignment::query()->with(['systemUnit', 'monitor']);
+
+        if ($request->filled('assigned_to')) {
+            $query->where('assigned_to', 'like', '%' . $request->assigned_to . '%');
+        }
+        $PcAssigned = $query->paginate(10)->withQueryString();
+
+        return view('assigned_pc.index', compact('PcAssigned'));
     }
 
     /**

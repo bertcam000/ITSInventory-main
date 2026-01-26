@@ -17,11 +17,22 @@ return new class extends Migration
     {
         Schema::create('pc_assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Department::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(SystemUnit::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Monitor::class)->constrained()->cascadeOnDelete();
+
+            $table->foreignId('department_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->foreignId('system_unit_id')
+                ->constrained('assets')
+                ->cascadeOnDelete();
+
+            $table->foreignId('monitor_id')
+                ->constrained('assets')
+                ->cascadeOnDelete();
+
             $table->string('assigned_to');
             $table->enum('status', ['assigned', 'unassigned'])->default('assigned');
+
             $table->timestamps();
         });
     }

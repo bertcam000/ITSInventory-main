@@ -21,4 +21,12 @@ class Asset extends Model
     {
         return $this->hasOne(MonitorSpec::class);
     }
+
+    public function systemUnitAssignments(){
+        return $this->hasMany(PcAssignment::class, 'system_unit_id');
+    }
+
+    public function monitorAssignments(){
+        return $this->hasMany(PcAssignment::class, 'monitor_id');
+    }
 }

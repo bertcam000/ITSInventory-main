@@ -17,7 +17,7 @@ new class extends Component {
     // public $qrCode;
 
     protected $rules = [
-        'serial_number' => 'required|string|max:255|unique:system_units,serial_number',
+        'serial_number' => 'required|string|max:255|unique:assets,serial_number',
         'brand' => 'required|string|max:255',
         'model' => 'required|string|max:255',
         'size' => 'required|string|max:255',

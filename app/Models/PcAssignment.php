@@ -15,4 +15,12 @@ class PcAssignment extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    public function systemUnit(){
+        return $this->belongsTo(Asset::class, 'system_unit_id');
+    }
+
+    public function monitor(){
+        return $this->belongsTo(Asset::class, 'monitor_id');
+    }
 }

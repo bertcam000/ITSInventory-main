@@ -7,7 +7,7 @@
                         value="{{ request('serial_number') }}"
                         type="text"
                         name="serial_number"
-                        placeholder="Search items..."
+                        placeholder="Search serial number..."
                         class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none col-span-3"
                     />
 
@@ -20,7 +20,7 @@
                     <select name="status" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none">
                         <option value="" {{ request('status') == '' ? 'selected' : '' }}>Status</option>
                         <option value="Available" {{ request('status') == 'Available' ? 'selected' : '' }}>Available</option>
-                        <option value="Borrowed" {{ request('status') == 'Borrowed' ? 'selected' : '' }}>Borrowed</option>
+                        <option value="assigned" {{ request('status') == 'assigned' ? 'selected' : '' }}>Assigned</option>
                         <option value="Damaged" {{ request('status') == 'Damaged' ? 'selected' : '' }}>Damaged</option>
                     </select>
 

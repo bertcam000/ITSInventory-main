@@ -23,7 +23,7 @@
         <div class="mt-4">
         <!-- QR Code Placeholder -->
         @if(session('qrCode'))
-            <p class="mb-1 tracking-widest text-xl font-bold">{{ session('qrCode') }}</p>
+            {{-- <p class="mb-1 tracking-widest text-xl font-bold">{{ session('qrCode') }}</p> --}}
             {{-- {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(300)->generate(session('qrCode')) !!} --}}
             {!! session('qrCode') !!}
         @endif
