@@ -11,6 +11,7 @@ new class extends Component {
     public $brand;
     public $model;
     public $asset_type;
+    public $processor;
     public $memory;
     public $storage;
     public $videocard;
@@ -22,6 +23,7 @@ new class extends Component {
         'brand' => 'required|string|max:255',
         'model' => 'required|string|max:255',
         'asset_type' => 'required|string|in:system_unit,laptop',
+        'processor' => 'required|string|max:255',
         'memory' => 'required|string|max:255',
         'storage' => 'required|string|max:255',
         'videocard' => 'nullable|string|max:255',
@@ -37,14 +39,16 @@ new class extends Component {
             'asset_type' => $this->asset_type,
             'brand' => $this->brand,
             'model' => $this->model,
-            'memory' => $this->memory,
-            'storage' => $this->storage,
-            'videocard' => $this->videocard,
+            // 'memory' => $this->memory,
+            // 'memory' => $this->memory,
+            // 'storage' => $this->storage,
+            // 'videocard' => $this->videocard,
             'status' => $this->status,
         ]);
 
         SystemUnitSpec::create([
             'asset_id' => $su->id,
+            'processor' => $this->processor,
             'memory' => $this->memory,
             'storage' => $this->storage,
             'videocard' => $this->videocard,
@@ -139,8 +143,7 @@ new class extends Component {
                 {{-- <x-input-error :messages="$errors->get('brand')" class="mt-2" /> --}}
                 <input wire:model="model" type="text" placeholder="Model" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('model') border-red-500 @enderror" />
                 {{-- <x-input-error :messages="$errors->get('model')" class="mt-2" /> --}}
-                <input type="text" placeholder="Processor" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('serial_number') border-red-500 @enderror" />
-                {{-- <x-input-error :messages="$errors->get('serial_number')" class="mt-2" /> --}}
+                <input wire:model="processor" type="text" placeholder="processor" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('processor') border-red-500 @enderror" />
                 <input wire:model="memory" type="text" placeholder="Memory" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('memory') border-red-500 @enderror" />
                 {{-- <x-input-error :messages="$errors->get('memory')" class="mt-2" /> --}}
                 <input wire:model="storage" type="text" placeholder="Storage" class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('storage') border-red-500 @enderror" />

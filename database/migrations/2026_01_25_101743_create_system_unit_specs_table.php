@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('system_unit_specs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Asset::class)->constrained()->cascadeOnDelete();
+            $table->string('processor');
             $table->string('memory');
             $table->string('storage');
             $table->string('videocard')->nullable();

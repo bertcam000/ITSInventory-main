@@ -53,6 +53,7 @@
                         <td class="px-4 py-3">{{ $asset->model }}</td>
                         <td class="px-4 py-3">
                             @if ($asset->asset_type === 'system_unit')
+                                <div>Processor: {{ $asset->systemUnitSpec->processor }}</div>
                                 <div>Memory: {{ $asset->systemUnitSpec->memory }}</div>
                                 <div>Storage: {{ $asset->systemUnitSpec->storage }}</div>
                                 <div>GPU: {{ $asset->systemUnitSpec->videocard }}</div>

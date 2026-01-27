@@ -85,7 +85,7 @@ new class extends Component {
                 @forelse ($departments as $department)
                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                 @empty
-                    <div>No Department Available.</div>
+                    <option disabled value="">No department available.</option>
                 @endforelse
             </select>
             <x-input-error :messages="$errors->get('department')" class="mt-2" />
@@ -106,7 +106,7 @@ new class extends Component {
                     <option value="{{ $asset->id }}">{{ $asset->serial_number . ' | ' . $asset->brand . ' | ' . $asset->model . ' | ' . $asset->systemUnitSpec->memory . ' | ' . $asset->systemUnitSpec->storage }}</option>
                 @endif
             @empty
-                
+                <option disabled value="">No system unit available.</option>
             @endforelse
             </select>
             <x-input-error :messages="$errors->get('systemUnit')" class="mt-2" />
@@ -128,7 +128,7 @@ new class extends Component {
                         <option value="{{ $asset->id }}">{{ $asset->serial_number . ' | ' . $asset->brand . ' | ' . $asset->model . ' | ' . $asset->monitorSpec->size }}</option>
                     @endif
                 @empty
-                    
+                    <option disabled value="">No monitor available.</option>
                 @endforelse
                 <x-input-error :messages="$errors->get('monitor')" class="mt-2" />
             </select>
