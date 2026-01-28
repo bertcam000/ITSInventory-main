@@ -19,7 +19,7 @@ class PcAssignmentController extends Controller
         }
         $PcAssigned = $query->paginate(10)->withQueryString();
 
-        return view('assigned_pc.index', compact('PcAssigned'));
+        return view('pages.assigned_pc.index', compact('PcAssigned'));
     }
 
     /**

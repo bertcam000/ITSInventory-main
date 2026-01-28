@@ -35,6 +35,7 @@
                     <li class="hover:bg-blue-300 hover:text-white px-3 py-2 rounded-md {{ request()->is('inventory') ? 'bg-blue-300 text-white' : '' }}"><a href="/inventory">Inventory</a></li>
                     <li class="hover:bg-blue-300 hover:text-white px-3 py-2 rounded-md {{ request()->is('assigned-pc') ? 'bg-blue-300 text-white' : '' }}"><a href="/assigned-pc">PC Assignment</a></li>
                     <li class="hover:bg-blue-300 hover:text-white px-3 py-2 rounded-md {{ request()->is('department') ? 'bg-blue-300 text-white' : '' }}"><a href="/department">Department</a></li>
+                    <li class="hover:bg-blue-300 hover:text-white px-3 py-2 rounded-md"><a href="#">Campus</a></li>
                     <li class="hover:bg-blue-300 hover:text-white px-3 py-2 rounded-md"><a href="#">QR Scanner</a></li>
                     <li class="hover:bg-blue-300 hover:text-white px-3 py-2 rounded-md"><a href="#">Users</a></li>
                     <li class="hover:bg-blue-300 hover:text-white px-3 py-2 rounded-md"><a href="#">Settings</a></li>

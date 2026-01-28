@@ -36,6 +36,8 @@ Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
 
 Route::get('/department', [DepartmentController::class, 'index']);
 
+Route::view('/testing', 'test.test');
+
 // Route::view('/item-list', 'item-list');
 
 // Route::post('/create', [ItemCreationController::class, 'create']);
