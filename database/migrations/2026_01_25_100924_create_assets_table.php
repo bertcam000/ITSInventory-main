@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number')->unique();
-            $table->enum('asset_type', ['system_unit', 'monitor' , 'laptop']);
+            $table->string('asset_type');
             $table->string('brand');
             $table->string('model');
             $table->string('status')->default('available');

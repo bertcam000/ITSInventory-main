@@ -40,7 +40,8 @@
         {{--  --}}
 
         <div x-show="fmodal === 'su'" x-cloak class="px-2 md:px-0 transition-all duration-300 flex h-screen w-full bg-black/20 fixed top-0 left-0 z-50  justify-center items-center">
-            <livewire:inventory.su-form/>
+            {{-- <livewire:inventory.su-form/> --}}
+            <livewire:test.test/>
         </div>
         <div x-show="fmodal === 'monitor'" x-cloak class="px-2 md:px-0 transition-all duration-300 flex h-screen w-full bg-black/20 fixed top-0 left-0 z-50  justify-center items-center">
             <livewire:inventory.monitor-form/>

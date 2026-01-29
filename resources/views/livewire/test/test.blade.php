@@ -9,20 +9,18 @@ new class extends Component {
     public string $brand = '';
     public string $model = '';
 
-    // PC specs
     public string $processor = '';
     public string $memory = '';
     public string $storage = '';
     public ?string $videocard = null;
 
-    // Monitor specs
     public string $size = '';
 
     public function rules()
     {
         return array_merge(
             [
-                'asset_type' => 'required|in:pc,monitor,laptop',
+                'asset_type' => 'required',
                 'serial_number' => 'required|unique:assets,serial_number',
                 'brand' => 'required',
                 'model' => 'required',
@@ -43,7 +41,6 @@ new class extends Component {
 
     public function updatedAssetType()
     {
-        // reset fields when switching type
         $this->reset([
             'processor',
             'memory',
@@ -57,15 +54,15 @@ new class extends Component {
     {
         $this->validate();
 
-        $asset = Asset::create([
+        $asset = \App\Models\Asset::create([
             'asset_type' => $this->asset_type === 'pc' ? 'system_unit' : $this->asset_type,
             'serial_number' => $this->serial_number,
             'brand' => $this->brand,
             'model' => $this->model,
         ]);
 
-        if ($this->asset_type === 'pc') {
-            SystemUnitSpec::create([
+        if ($this->asset_type === 'pc' || $this->asset_type === 'laptop') {
+            \App\Models\SystemUnitSpec::create([
                 'asset_id' => $asset->id,
                 'processor' => $this->processor,
                 'memory' => $this->memory,
@@ -75,7 +72,7 @@ new class extends Component {
         }
 
         if ($this->asset_type === 'monitor') {
-            MonitorSpec::create([
+            \App\Models\MonitorSpec::create([
                 'asset_id' => $asset->id,
                 'size' => $this->size,
             ]);
@@ -87,7 +84,7 @@ new class extends Component {
     
 }; ?>
 
-<div class="max-w-2xl mx-auto p-6 bg-white rounded shadow space-y-6">
+<div @click.away="fmodal = ''" class="max-w-2xl mx-auto p-6 bg-white rounded shadow space-y-6">
 
     <h2 class="text-xl font-semibold">Create Asset</h2>
 
@@ -108,31 +105,34 @@ new class extends Component {
                 <option value="pc">PC</option>
                 <option value="monitor">Monitor</option>
                 <option value="laptop">Laptop</option>
+                <option value="printer">Printer</option>
+                <option value="mouse">Mouse</option>
+                <option value="keyboard">Keyboard</option>
             </select>
             @error('asset_type') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <!-- Common Fields -->
         <div class="grid grid-cols-2 gap-4">
-            <div>
+            <div class="col-span-2">
                 <label class="block text-sm font-medium">Serial Number</label>
-                <input type="text" wire:model="serial_number" class="w-full rounded border-gray-300">
+                <input type="text" wire:model="serial_number" class="w-full rounded border-gray-300" placeholder="ex. C8DTW2">
                 @error('serial_number') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
             </div>
 
             <div>
                 <label class="block text-sm font-medium">Brand</label>
-                <input type="text" wire:model="brand" class="w-full rounded border-gray-300">
+                <input type="text" wire:model="brand" class="w-full rounded border-gray-300" placeholder="ex. Dell">
             </div>
 
             <div>
                 <label class="block text-sm font-medium">Model</label>
-                <input type="text" wire:model="model" class="w-full rounded border-gray-300">
+                <input type="text" wire:model="model" class="w-full rounded border-gray-300" placeholder="ex. OptiPlex 5080">
             </div>
         </div>
 
         <!-- PC Fields -->
-        @if ($asset_type === 'pc')
+        @if ($asset_type === 'pc' || $asset_type === 'laptop')
             <div class="border rounded p-4 bg-gray-50 space-y-3">
                 <h3 class="font-medium">PC Specifications</h3>
 
