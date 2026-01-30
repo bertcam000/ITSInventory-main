@@ -16,4 +16,8 @@ class Department extends Model
     {
         return $this->hasMany(PcAssignment::class);
     }
+
+    public function campus(){
+        return $this->belongsTo(Campus::class);
+    }
 }

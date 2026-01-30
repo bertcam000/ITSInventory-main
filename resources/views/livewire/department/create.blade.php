@@ -5,20 +5,33 @@ use Livewire\Volt\Component;
 new class extends Component {
 
     public $name;
+    public $campus;
 
     public function submit()
     {
         $this->validate([
             'name' => 'required|string|max:255|unique:departments,name',
+            'campus' => 'required',
         ]);
 
         \App\Models\Department::create([
             'name' => $this->name,
+            'campus_id' => $this->campus,
         ]);
 
         $this->reset(['name']);
 
         redirect('department')->with('success', 'Department added successfully!');
+    }
+
+    public function getCampus(){
+        return \App\Models\Campus::get();
+    }
+
+    public function with(){
+        return [
+            'campuses' => $this->getCampus(),
+        ];
     }
     
 }; ?>
@@ -40,6 +53,14 @@ new class extends Component {
             >
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
+        <select wire:model="campus" class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('campus') border-red-500 @enderror">
+            <option value="">Select Campus</option>
+            @forelse ($campuses as $campus)
+                <option value="available">{{ $campus->name }}</option>
+            @empty
+                
+            @endforelse
+        </select>
         <div class="flex justify-end">
             <button
                 type="submit"

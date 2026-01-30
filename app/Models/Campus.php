@@ -9,4 +9,9 @@ class Campus extends Model
 {
     /** @use HasFactory<\Database\Factories\CampusFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
+
+    public function department(){
+        return $this->hasMany(Department::class);
+    }
 }

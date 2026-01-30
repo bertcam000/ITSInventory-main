@@ -75,12 +75,7 @@ new class extends Component {
         <!-- System Unit -->
         <div>
             <label class="block text-sm text-gray-600 mb-1" for="system_unit">Departments</label>
-            <select
-                id="department"
-                wire:model="department"
-                name="department"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('department') border-red-500 @enderror"
-            >
+            <select id="department" wire:model="department" name="department" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('department') border-red-500 @enderror">
                 <option value="">Select Department</option>
                 @forelse ($departments as $department)
                     <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -94,12 +89,7 @@ new class extends Component {
         <!-- Monitor -->
         <div>
             <label class="block text-sm text-gray-600 mb-1" for="monitor">System Units</label>
-            <select
-                id="systemUnit"
-                wire:model="systemUnit"
-                name="systemUnit"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('systemUnit') border-red-500 @enderror"
-            >
+            <select id="systemUnit" wire:model="systemUnit" name="systemUnit" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('systemUnit') border-red-500 @enderror">
             <option value="">Select System Units</option>
             @forelse ($assets as $asset)
                 @if ($asset->asset_type === 'system_unit')
@@ -115,13 +105,7 @@ new class extends Component {
         <!-- Department -->
         <div>
             <label class="block text-sm text-gray-600 mb-1" for="monitor">Monitor</label>
-            <select
-                id="monitor"
-                wire:model="monitor"
-                name="monitor"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('monitor') border-red-500 @enderror"
-                
-            >
+            <select id="monitor" wire:model="monitor" name="monitor" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('monitor') border-red-500 @enderror">
                 <option value="">Select Monitor</option>
                 @forelse ($assets as $asset)
                     @if ($asset->asset_type === 'monitor')

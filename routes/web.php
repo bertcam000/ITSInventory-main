@@ -6,6 +6,8 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PcAssignmentController;
+use App\Http\Controllers\CampusController;
+use App\Models\Campus;
 
 Route::view('/', 'welcome');
 
@@ -35,6 +37,7 @@ Route::get('/inventory', [AssetController::class, 'index']);
 Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
 
 Route::get('/department', [DepartmentController::class, 'index']);
+Route::get('/campus', [CampusController::class, 'index']);
 
 Route::view('/testing', 'test.test');
 

@@ -22,7 +22,7 @@ new class extends Component {
             [
                 'asset_type' => 'required',
                 'serial_number' => 'required|unique:assets,serial_number',
-                'brand' => 'required',
+                'brand' => 'required|unique:assets,brand',
                 'model' => 'required',
             ],
             match ($this->asset_type) {
@@ -122,7 +122,7 @@ new class extends Component {
 
             <div>
                 <label class="block text-sm font-medium">Brand</label>
-                <input type="text" wire:model="brand" class="w-full rounded border-gray-300" placeholder="ex. Dell">
+                <input type="text" wire:model="brand" class="w-full rounded border-gray-300 @error('brand') border-red-500 @enderror" placeholder="ex. Dell">
             </div>
 
             <div>
