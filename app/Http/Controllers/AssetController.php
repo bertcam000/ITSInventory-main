@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssetController extends Controller
 {
@@ -18,9 +19,9 @@ class AssetController extends Controller
             $query->where('asset_type', $request->asset_type);
         }
 
-        if ($request->filled('brand')) {
-            $query->where('brand', 'like', '%'.$request->brand.'%');
-        }
+        // if ($request->filled('brand')) {
+        //     $query->where('brand', 'like', '%'.$request->brand.'%');
+        // }
 
         if ($request->filled('status')) {
             $query->where('status', 'like', '%'.$request->status.'%');
@@ -31,10 +32,28 @@ class AssetController extends Controller
             $query->where('serial_number', 'like', '%' . $request->serial_number . '%');
         }
 
-        $assets = $query->paginate(10)->withQueryString();
+        $assetTypeCounts = Asset::select('asset_type', DB::raw('count(*) as total'))
+            ->groupBy('asset_type')
+            ->pluck('total', 'asset_type');
+
+        $statusCounts = Asset::select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        $statusCards = [
+            'total'       => array_sum($assetTypeCounts->toArray()),
+            'system_unit' => $assetTypeCounts['system_unit'] ?? 0,
+            'laptop'      => $assetTypeCounts['laptop'] ?? 0,
+            'monitor'     => $assetTypeCounts['monitor'] ?? 0,
+            'printer'     => $assetTypeCounts['printer'] ?? 0,
+            'assigned'    => $statusCounts['assigned'] ?? 0,
+        ];
 
 
-        return view('inventory.index', compact('assets'));
+        $assets = $query->paginate(5)->withQueryString();
+
+
+        return view('inventory.index', compact('assets', 'statusCards'));
     }
 
     /**

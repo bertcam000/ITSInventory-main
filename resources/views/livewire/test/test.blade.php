@@ -21,8 +21,8 @@ new class extends Component {
         return array_merge(
             [
                 'asset_type' => 'required',
-                'serial_number' => 'required|unique:assets,serial_number',
-                'brand' => 'required|unique:assets,brand',
+                'serial_number' => 'required_unless:asset_type,mouse|unique:assets,serial_number',
+                'brand' => 'required',
                 'model' => 'required',
             ],
             match ($this->asset_type) {
@@ -84,7 +84,7 @@ new class extends Component {
     
 }; ?>
 
-<div @click.away="fmodal = ''" class="max-w-2xl mx-auto p-6 bg-white rounded shadow space-y-6">
+<div @click.away="addAssetModalOpen = false" class="max-w-2xl mx-auto p-6 bg-white rounded shadow space-y-6">
 
     <h2 class="text-xl font-semibold">Create Asset</h2>
 
@@ -116,7 +116,7 @@ new class extends Component {
         <div class="grid grid-cols-2 gap-4">
             <div class="col-span-2">
                 <label class="block text-sm font-medium">Serial Number</label>
-                <input type="text" wire:model="serial_number" class="w-full rounded border-gray-300" placeholder="ex. C8DTW2">
+                <input type="text" wire:model="serial_number" class="w-full rounded border-gray-300 @error('serial_number') border-red-500 @enderror" placeholder="ex. C8DTW2">
                 @error('serial_number') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
             </div>
 
