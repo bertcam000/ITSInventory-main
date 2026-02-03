@@ -79,7 +79,8 @@ new class extends Component {
         }
 
         $this->reset();
-        session()->flash('success', 'Asset created successfully!');
+        return redirect('/inventory')->with('success', 'Asset created successfully!');
+        // session()->flash('success', 'Asset created successfully!');
     }
     
 }; ?>
@@ -153,11 +154,9 @@ new class extends Component {
         @endif
 
         <!-- Submit -->
-        <div class="pt-4">
-            <button type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                Save Asset
-            </button>
+        <div class="pt-4 flex justify-end  gap-3">
+            <div @click="addAssetModalOpen = false" class="px-4 border rounded border-gray-300 hover:bg-gray-100 flex justify-center items-center cursor-pointer">Cancel</div>
+            <button type="submit" class="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90">Save Asset</button>
         </div>
 
     </form>

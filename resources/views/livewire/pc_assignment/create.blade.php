@@ -73,7 +73,7 @@ new class extends Component {
     <form class="space-y-4" wire:submit.prevent="submit">
 
         <!-- System Unit -->
-        <div>
+        <div>j
             <label class="block text-sm text-gray-600 mb-1" for="system_unit">Departments</label>
             <select id="department" wire:model="department" name="department" class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('department') border-red-500 @enderror">
                 <option value="">Select Department</option>

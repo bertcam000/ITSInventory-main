@@ -47,13 +47,13 @@ class AssetController extends Controller
             'monitor'     => $assetTypeCounts['monitor'] ?? 0,
             'printer'     => $assetTypeCounts['printer'] ?? 0,
             'assigned'    => $statusCounts['assigned'] ?? 0,
-        ];
+        ];  
 
 
         $assets = $query->paginate(5)->withQueryString();
 
 
-        return view('inventory.index', compact('assets', 'statusCards'));
+        return view('pages.inventory.index', compact('assets', 'statusCards'));
     }
 
     /**
