@@ -20,6 +20,7 @@
                 <tr class="bg-slate-300 text-gray-700 uppercase text-xs border-b border-gray-300">
                     <th class="px-4 py-3 whitespace-nowrap">Id</th>
                     <th class="px-4 py-3 whitespace-nowrap">Department Name</th>
+                    <th class="px-4 py-3 whitespace-nowrap">Campus</th>
                     <th class="px-4 py-3 whitespace-nowrap">Employees</th>
                     <th class="px-4 py-3 whitespace-nowrap">Action</th>
                 </tr>
@@ -29,6 +30,7 @@
                     <tr class="hover:bg-gray-50">
                         <td class="px-4 py-3">{{ $department->id }}</td>
                         <td class="px-4 py-3">{{ $department->name }}</td>
+                        <td class="px-4 py-3">{{ $department->campus->name }}</td>
                         <td class="px-4 py-3">
                             {{ $department->PcAssignments->count() }}
                         </td>

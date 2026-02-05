@@ -117,9 +117,11 @@ new class extends Component {
             <select wire:model.live="campus"
                     class="w-full border rounded-lg px-4 py-2">
                 <option value="">Select Campus</option>
-                @foreach ($this->campuses as $cam)
+                @forelse ($this->campuses as $cam)
                     <option value="{{ $cam->id }}">{{ $cam->name }}</option>
-                @endforeach
+                @empty
+                    <option value="" disabled>No data found.</option>
+                @endforelse
             </select>
             <x-input-error :messages="$errors->get('campus')" class="mt-2" />
         </div>
@@ -147,7 +149,7 @@ new class extends Component {
             <select wire:model="systemUnit"
                     class="w-full border rounded-lg px-4 py-2">
                 <option value="">Select System Unit</option>
-                @foreach ($this->systemUnits as $unit)
+                @forelse ($this->systemUnits as $unit)
                     <option value="{{ $unit->id }}">
                         {{ $unit->serial_number }} |
                         {{ $unit->brand }} |
@@ -155,7 +157,9 @@ new class extends Component {
                         {{ $unit->systemUnitSpec->memory }} |
                         {{ $unit->systemUnitSpec->storage }}
                     </option>
-                @endforeach
+                @empty
+                    <option value="" disabled>No data found.</option>
+                @endforelse
             </select>
             <x-input-error :messages="$errors->get('systemUnit')" class="mt-2" />
         </div>
@@ -166,14 +170,16 @@ new class extends Component {
             <select wire:model="monitor"
                     class="w-full border rounded-lg px-4 py-2">
                 <option value="">Select Monitor</option>
-                @foreach ($this->monitors as $monitor)
+                @forelse ($this->monitors as $monitor)
                     <option value="{{ $monitor->id }}">
                         {{ $monitor->serial_number }} |
                         {{ $monitor->brand }} |
                         {{ $monitor->model }} |
                         {{ $monitor->monitorSpec->size }}
                     </option>
-                @endforeach
+                @empty
+                    <option value="" disabled>No data found.</option>
+                @endforelse
             </select>
             <x-input-error :messages="$errors->get('monitor')" class="mt-2" />
         </div>

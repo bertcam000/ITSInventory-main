@@ -18,6 +18,7 @@ new class extends Component {
             'name' => $this->name,
             'campus_id' => $this->campus,
         ]);
+    
 
         $this->reset(['name']);
 
@@ -56,9 +57,9 @@ new class extends Component {
         <select wire:model="campus" class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('campus') border-red-500 @enderror">
             <option value="">Select Campus</option>
             @forelse ($campuses as $campus)
-                <option value="available">{{ $campus->name }}</option>
+                <option value="{{ $campus->id }}">{{ $campus->name }}</option>
             @empty
-                
+                <option value="" disabled>No campus available.</option>
             @endforelse
         </select>
         <div class="flex justify-end">

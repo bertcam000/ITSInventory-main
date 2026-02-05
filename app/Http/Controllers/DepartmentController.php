@@ -12,7 +12,7 @@ class DepartmentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Department::query()->with(['PcAssignments']);
+        $query = Department::query()->with(['PcAssignments','campus']);
 
         if ($request->filled('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');
