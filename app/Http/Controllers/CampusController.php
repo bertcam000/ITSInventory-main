@@ -11,7 +11,8 @@ class CampusController extends Controller
      */
     public function index()
     {
-        return view('campus.index');
+        // return view('campus.index');
+        return view('pages.campus.index');
     }
 
     /**

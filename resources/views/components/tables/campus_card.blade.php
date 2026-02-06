@@ -1,5 +1,4 @@
   <div class=" mx-auto ">
-    <h1 class="text-3xl font-bold text-center mb-8">Our Campuses</h1>
     <!-- Cards Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
@@ -17,7 +16,7 @@
             Our flagship campus offering world-class education and facilities.
           </p>
           <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-            View Campus
+            View Departments
           </button>
         </div>
       </div>
@@ -29,14 +28,16 @@
           alt="Campus"
           class="h-40 w-full object-cover rounded-t-xl"
         />
-        <div class="p-5">
+        <div class="p-5 flex flex-col">
+          <div>
           <h2 class="text-xl font-semibold mb-1">MV Campus</h2>
-          <p class="text-sm text-gray-500 mb-3">London, UK</p>
-          <p class="text-gray-600 text-sm mb-4">
-            A modern campus located in the heart of the city.
-          </p>
+            <p class="text-sm text-gray-500 mb-3">London, UK</p>
+            <p class="text-gray-600 text-sm mb-4">
+              A modern campus located in the heart of the city.
+            </p>
+          </div>
           <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-            View Campus
+            View Departments
           </button>
         </div>
       </div>
@@ -55,7 +56,7 @@
             Focused on technology, innovation, and research.
           </p>
           <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-            View Campus
+            View Departments
           </button>
         </div>
       </div>
@@ -74,7 +75,7 @@
             A diverse campus with global programs and partnerships.
           </p>
           <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-            View Campus
+            View Departments
           </button>
         </div>
       </div>
