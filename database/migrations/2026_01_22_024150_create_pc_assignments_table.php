@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('pc_assignments', function (Blueprint $table) {
             $table->id();
-
+            $table->string('asset_id');
             $table->foreignId('department_id')
                 ->constrained()
                 ->cascadeOnDelete();
@@ -30,8 +30,9 @@ return new class extends Migration
                 ->constrained('assets')
                 ->cascadeOnDelete();
 
+            
             $table->string('assigned_to');
-            $table->enum('status', ['assigned', 'unassigned'])->default('assigned');
+            $table->string('status')->default('assigned');
 
             $table->timestamps();
         });

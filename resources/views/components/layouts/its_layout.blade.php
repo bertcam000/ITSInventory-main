@@ -38,7 +38,7 @@
 >
 
   <!--  SIDEBAR -->
-  <aside :class="sidebarOpen ? 'sidebar-w-open translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'" class="bg-white border-r border-gray-200 transition-all duration-300 flex flex-col fixed z-50 top-0 left-0 h-full min-h-screen max-h-screen shadow-sm">
+  <aside x-cloak :class="sidebarOpen ? 'sidebar-w-open translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'" class="bg-white border-r border-gray-200 transition-all duration-300 flex flex-col fixed z-50 top-0 left-0 h-full min-h-screen max-h-screen shadow-sm">
     <!-- Logo -->
     <div class="h-16 flex items-center gap-3 px-4 flex-shrink-0">
       <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primaryDark flex items-center justify-center flex-shrink-0">
@@ -80,28 +80,19 @@
           <span class="sidebar-icon-wrap"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg></span>
-          <span x-show="sidebarOpen" class="ml-3">PC Assignment</span>
+          <a href="assigned-pc" x-show="sidebarOpen" class="ml-3">PC Assignment</a>
         </button>
         <!-- Department Dropdown -->
-        <div class="relative" @click.outside="departmentOpen = false">
+        <div class="relative">
           <button @click="sidebarOpen ? (departmentOpen = !departmentOpen) : (active='department'); if (window.innerWidth < 768 && departmentOpen) sidebarOpen = true" class="sidebar-btn w-full flex items-center justify-between" :class="(active.startsWith('department-') || active==='department') && 'bg-primary/10 text-primary border-l-4 border-primary'">
             <div class="flex items-center flex-1 min-w-0">
               <span class="sidebar-icon-wrap"><svg class="flex-shrink-0 transition-[width,height] duration-200" :class="sidebarOpen ? 'w-5 h-5' : 'w-7 h-7'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
               </svg></span>
-              <span x-show="sidebarOpen" class="ml-3 truncate">Departments</span>
+              <a href="/department" class="ml-3 truncate">Departments</a>
             </div>
-            <svg x-show="sidebarOpen" class="w-4 h-4 flex-shrink-0 ml-2 transition-transform" :class="departmentOpen && 'rotate-180'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
           </button>
-          <div x-show="sidebarOpen && departmentOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="pl-4 pr-2 py-1 space-y-0.5 border-l-2 border-primary/30 ml-5 mt-1 max-h-48 overflow-y-auto">
-            <template x-for="dept in departments" :key="dept">
-              <button @click="active='department'; selectedDepartment=dept.toLowerCase(); if (window.innerWidth < 768) sidebarOpen = false; departmentOpen = false" class="sidebar-btn w-full text-left text-sm py-2" :class="selectedDepartment===dept.toLowerCase() && 'bg-primary/10 text-primary'">
-                <span x-text="dept"></span>
-              </button>
-            </template>
-          </div>
+          
         </div>
         <button @click="active='qr-scanner'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full" :class="active==='qr-scanner' && 'bg-primary/10 text-primary border-l-4 border-primary'">
           <span class="sidebar-icon-wrap"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,7 +118,15 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l9-4 9 4-9 4-9-4zm2 6l7 3 7-3m-7 3v5"/>
             </svg>
           </span>
-          <span x-show="sidebarOpen" class="ml-3 truncate">Campuses</span>
+          {{-- <span x-show="sidebarOpen" class="ml-3 truncate">Campuses</span> --}}
+          <div class="grid">
+            @foreach ($campuses as $campus)
+              <a href=""
+                class="block px-3 py-2 rounded-lg hover:bg-slate-100 ml-3 truncate">
+                  {{ $campus->name }}
+              </a>
+          @endforeach
+        </div>
         </button>
       </div>
       <!-- ================= END CAMPUSES SIDEBAR ================= -->
@@ -183,7 +182,7 @@
   <div x-show="sidebarOpen && isMobile" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-40 md:hidden" x-transition></div>
 
   <!--  MAIN -->
-  <div class="flex-1 flex flex-col min-w-0 transition-all duration-300" :class="sidebarOpen ? 'md:ml-64' : 'md:ml-20'">
+  <div class="flex-1 flex flex-col min-w-0 " :class="sidebarOpen ? 'md:ml-64' : 'md:ml-20'">
 
     <!-- TOPBAR -->
     <header class="topbar-height flex items-center justify-between px-3 sm:px-5 md:px-6 sticky top-0 z-30 transition-all duration-300" :class="topbarScrolled ? 'topbar-scrolled' : 'topbar-plain'">
@@ -195,15 +194,6 @@
             </button>
         </div>
         <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {{-- <div class="hidden md:flex items-center gap-2 text-sm text-gray-600">
-                <span>Time period:</span>
-                <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                    <option>This Month</option>
-                    <option>Last Month</option>
-                    <option>This Quarter</option>
-                    <option>This Year</option>
-                </select>
-            </div> --}}
             <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-primaryDark flex items-center justify-center text-white font-semibold text-sm cursor-pointer hover:opacity-90 transition-opacity shadow-md ring-2 ring-white">
                 IA
             </div>
@@ -211,7 +201,7 @@
     </header>
 
     <!-- CONTENT -->
-    <main class="main-content-padding space-y-6 bg-gray-50 flex-1 min-w-0 overflow-y-auto" @scroll.passive="topbarScrolled = $event.target.scrollTop > 8">
+    <main x-cloak class="main-content-padding space-y-6 bg-gray-50 flex-1 min-w-0 overflow-y-auto" @scroll.passive="topbarScrolled = $event.target.scrollTop > 8">
 
       {{ $slot }}
       

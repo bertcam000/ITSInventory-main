@@ -12,7 +12,7 @@ class PcAssignmentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = PcAssignment::query()->with(['systemUnit', 'monitor']);
+        $query = PcAssignment::query()->with(['systemUnit', 'monitor', 'department.campus']);
 
         if ($request->filled('assigned_to')) {
             $query->where('assigned_to', 'like', '%' . $request->assigned_to . '%');

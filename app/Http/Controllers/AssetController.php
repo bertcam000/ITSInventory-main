@@ -75,9 +75,19 @@ class AssetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Asset $asset)
     {
-        //
+        $asset->load(['systemUnitSpec', 'monitorSpec']);
+
+        $assignment = $asset->currentPcAssignment()
+            ->with([
+                'department.campus',
+                'systemUnit.systemUnitSpec',
+                'monitor.monitorSpec',
+            ])
+            ->first();
+
+        return view('pages.inventory.result', compact('asset', 'assignment'));
     }
 
     /**

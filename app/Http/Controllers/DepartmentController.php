@@ -18,7 +18,7 @@ class DepartmentController extends Controller
             $query->where('name', 'like', '%' . $request->name . '%');
         }
         $departments = $query->paginate(10)->withQueryString();
-        return view('department.index', compact('departments'));
+        return view('pages.departments.index', compact('departments'));
     }
 
     /**

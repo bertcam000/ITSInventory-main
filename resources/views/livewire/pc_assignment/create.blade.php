@@ -11,23 +11,25 @@ new class extends Component {
     /* =======================
      |  FORM PROPERTIES
      ======================= */
+    public $asset_id = null;
     public $campus = null;
     public $department = null;
     public $systemUnit = null;
     public $monitor = null;
     public $assignedTo = '';
-    public $status = null;
+    // public $status = null;
 
     /* =======================
      |  VALIDATION
      ======================= */
     protected $rules = [
+        'asset_id' => 'required|string|unique:pc_assignments,asset_id',
         'campus' => 'required|exists:campuses,id',
         'department' => 'required|exists:departments,id',
         'systemUnit' => 'required|exists:assets,id',
         'monitor' => 'required|exists:assets,id',
         'assignedTo' => 'required|string|max:255',
-        'status' => 'required|in:assigned,unassigned',
+        // 'status' => 'required|in:assigned,unassigned',
     ];
 
     /* =======================
@@ -38,11 +40,12 @@ new class extends Component {
         $this->validate();
 
         PcAssignment::create([
+            'asset_id' => $this->asset_id,
             'department_id' => $this->department,
             'system_unit_id' => $this->systemUnit,
             'monitor_id' => $this->monitor,
             'assigned_to' => $this->assignedTo,
-            'status' => $this->status,
+            
         ]);
 
         Asset::whereIn('id', [$this->systemUnit, $this->monitor])
@@ -102,7 +105,7 @@ new class extends Component {
 };
 ?>
 
-<div class="max-w-3xl mx-auto mt-10 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+<div class="max-w-3xl mx-auto  bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
 
     <h2 class="text-xl font-semibold text-gray-800 mb-2">Assign PC</h2>
     <p class="text-sm text-gray-500 mb-6">
@@ -111,36 +114,48 @@ new class extends Component {
 
     <form class="space-y-4" wire:submit.prevent="submit">
 
-        <!-- CAMPUS -->
+
         <div>
-            <label class="block text-sm text-gray-600 mb-1">Campus</label>
-            <select wire:model.live="campus"
-                    class="w-full border rounded-lg px-4 py-2">
-                <option value="">Select Campus</option>
-                @forelse ($this->campuses as $cam)
-                    <option value="{{ $cam->id }}">{{ $cam->name }}</option>
-                @empty
-                    <option value="" disabled>No data found.</option>
-                @endforelse
-            </select>
-            <x-input-error :messages="$errors->get('campus')" class="mt-2" />
+            <label class="block text-sm text-gray-600 mb-1">Asset ID</label>
+            <input type="text"
+                   wire:model="asset_id"
+                   class="w-full border rounded-lg px-4 py-2"
+                   placeholder="e.g. SPS-001">
+            <x-input-error :messages="$errors->get('asset_id')" class="mt-2" />
         </div>
+        
+        <!-- CAMPUS -->
+        <div class="grid grid-cols-2 gap-2">
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">Campus</label>
+                <select wire:model.live="campus"
+                        class="w-full border rounded-lg px-4 py-2">
+                    <option value="">Select Campus</option>
+                    @forelse ($this->campuses as $cam)
+                        <option value="{{ $cam->id }}">{{ $cam->name }}</option>
+                    @empty
+                        <option value="" disabled>No data found.</option>
+                    @endforelse
+                </select>
+                <x-input-error :messages="$errors->get('campus')" class="mt-2" />
+            </div>
 
-        <!-- DEPARTMENT -->
-        <div>
-            <label class="block text-sm text-gray-600 mb-1">Department</label>
-            <select wire:model="department"
-                    class="w-full border rounded-lg px-4 py-2"
-                    @disabled(!$campus)>
-                <option value="">
-                    {{ $campus ? 'Select Department' : 'Select Campus First' }}
-                </option>
+            <!-- DEPARTMENT -->
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">Department</label>
+                <select wire:model="department"
+                        class="w-full border rounded-lg px-4 py-2"
+                        @disabled(!$campus)>
+                    <option value="">
+                        {{ $campus ? 'Select Department' : 'Select Campus First' }}
+                    </option>
 
-                @foreach ($this->getDepartmentsProperty() as $dept)
-                    <option value="{{ $dept->id }}">{{ $dept->name }}</option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('department')" class="mt-2" />
+                    @foreach ($this->getDepartmentsProperty() as $dept)
+                        <option value="{{ $dept->id }}">{{ $dept->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('department')" class="mt-2" />
+            </div>
         </div>
 
         <!-- SYSTEM UNIT -->
@@ -195,7 +210,7 @@ new class extends Component {
         </div>
 
         <!-- STATUS -->
-        <div>
+        {{-- <div>
             <label class="block text-sm text-gray-600 mb-1">Status</label>
             <select wire:model="status"
                     class="w-full border rounded-lg px-4 py-2">
@@ -204,7 +219,7 @@ new class extends Component {
                 <option value="unassigned">Unassigned</option>
             </select>
             <x-input-error :messages="$errors->get('status')" class="mt-2" />
-        </div>
+        </div> --}}
 
         <!-- SUBMIT -->
         <div class="flex justify-end mt-6">

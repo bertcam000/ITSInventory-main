@@ -29,4 +29,12 @@ class Asset extends Model
     public function monitorAssignments(){
         return $this->hasMany(PcAssignment::class, 'monitor_id');
     }
+
+    public function currentPcAssignment()
+    {
+        return PcAssignment::query()
+            ->where('system_unit_id', $this->id)
+            ->orWhere('monitor_id', $this->id)
+            ->latest('id'); // or latest('created_at') if you have timestamps
+    }
 }

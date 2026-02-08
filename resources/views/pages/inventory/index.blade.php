@@ -106,7 +106,7 @@
             <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Current Asset Total {{ $statusCards['total'] }}</h2>
             <form action="/inventory" method="GET">
                 <div class="flex items-center gap-3">
-                    <input type="text" id="serial_number" name="serial_number" placeholder="Search serial number..." class="text-sm border border-gray-300 rounded px-3 w-48 py-1">
+                    <input type="text" value="{{ request('serial_number') }}" id="serial_number" name="serial_number" placeholder="Search serial number..." class="text-sm border border-gray-300 rounded px-3 w-48 py-1">
                     <select name="asset_type" id="asset_type" wire:model.live="asset_type" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
                         <option value="" {{ request('asset_type') ? '' : 'selected' }}>All Types</option>
                         <option value="system_unit" {{ request('asset_type') == 'system_unit' ? 'selected' : '' }}>System Unit</option>
@@ -155,7 +155,7 @@
                         @endif
                     </td>
                     <td class="px-6 py-4 text-gray-900">{{ $asset->status }}</td>
-                    <td class="px-6 py-4"><button class="text-primary hover:text-primaryDark text-xs font-medium">View →</button></td>
+                    <td class="px-6 py-4"><a href="/inventory/result/{{ $asset->id }}" class="text-primary hover:text-primaryDark text-xs font-medium">View →</a></td>
                 </tr>
                 @empty
                     <td colspan="7" class="px-6 py-4 text-center text-gray-500">No Data Found</td>

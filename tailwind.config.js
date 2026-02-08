@@ -9,6 +9,8 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
+    darkMode: 'class',
+    
     theme: {
         extend: {
             fontFamily: {
@@ -18,8 +20,11 @@ export default {
             primary: '#10b981',
             primaryDark: '#059669'
           }
+          
         },
+        
     },
+    
 
     plugins: [forms],
 };
