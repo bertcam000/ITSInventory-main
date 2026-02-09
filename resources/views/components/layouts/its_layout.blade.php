@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dashboard | ITS Inventory System</title>
+  <title>ITS Inventory System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="/img/its_logo.png">
   @vite('resources/css/app.css')
@@ -14,9 +14,9 @@
 <div 
   x-data="{ 
     sidebarOpen: false,
-    departmentOpen: false,
+    {{-- departmentOpen: false,
     campusOpen: false,
-    topbarScrolled: false,
+    topbarScrolled: false, --}}
     isMobile: false,
     active: 'dashboard',
     searchQuery: '',
@@ -60,36 +60,36 @@
       <!-- DASHBOARD -->
       <div class="mb-4">
         <p x-show="sidebarOpen" class="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 mb-2">Main</p>
-        <button @click="active='dashboard'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full" :class="active==='dashboard' && 'bg-primary/10 text-primary border-l-4 border-primary'">
+        <button @click="active='dashboard'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full {{ request()->is('dashboard') ? 'bg-primary/10 text-primary border-l-4 border-primary' : '' }}" >
           <span class="sidebar-icon-wrap"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
           </svg></span>
-          <span x-show="sidebarOpen" class="ml-3">Dashboard</span>
+          <a href="/dashboard" wire:navigate x-show="sidebarOpen" class="ml-3">Dashboard</a>
         </button>
       </div>
       <!-- INVENTORY -->
       <div class="mb-4">
         <p x-show="sidebarOpen" class="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 mb-2">Inventory</p>
-        <button @click="active='inventory'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full" :class="active==='inventory' && 'bg-primary/10 text-primary border-l-4 border-primary'">
+        <button @click="active='inventory'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full {{ request()->is('inventory') ? 'bg-primary/10 text-primary border-l-4 border-primary' : '' }}">
           <span class="sidebar-icon-wrap"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
           </svg></span>
-          <a href="/inventory" x-show="sidebarOpen" class="ml-3">Asset Management</a>
+          <a href="/inventory" wire:navigate x-show="sidebarOpen" class="ml-3">Asset Management</a>
         </button>
-        <button @click="active='pc-assignment'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full" :class="active==='pc-assignment' && 'bg-primary/10 text-primary border-l-4 border-primary'">
+        <button @click="active='pc-assignment'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full {{ request()->is('assigned-pc') ? 'bg-primary/10 text-primary border-l-4 border-primary' : '' }}">
           <span class="sidebar-icon-wrap"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg></span>
-          <a href="assigned-pc" x-show="sidebarOpen" class="ml-3">PC Assignment</a>
+          <a href="assigned-pc" wire:navigate x-show="sidebarOpen" class="ml-3">PC Assignment</a>
         </button>
         <!-- Department Dropdown -->
         <div class="relative">
-          <button @click="sidebarOpen ? (departmentOpen = !departmentOpen) : (active='department'); if (window.innerWidth < 768 && departmentOpen) sidebarOpen = true" class="sidebar-btn w-full flex items-center justify-between" :class="(active.startsWith('department-') || active==='department') && 'bg-primary/10 text-primary border-l-4 border-primary'">
+          <button @click="sidebarOpen ? (departmentOpen = !departmentOpen) : (active='department'); if (window.innerWidth < 768 && departmentOpen) sidebarOpen = true" class="sidebar-btn w-full flex items-center justify-between {{ request()->is('department') ? 'bg-primary/10 text-primary border-l-4 border-primary' : '' }}">
             <div class="flex items-center flex-1 min-w-0">
               <span class="sidebar-icon-wrap"><svg class="flex-shrink-0 transition-[width,height] duration-200" :class="sidebarOpen ? 'w-5 h-5' : 'w-7 h-7'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
               </svg></span>
-              <a href="/department" class="ml-3 truncate">Departments</a>
+              <a href="/department" wire:navigate class="ml-3 truncate">Departments</a>
             </div>
           </button>
           
@@ -112,22 +112,20 @@
       <!-- ================= CAMPUSES SIDEBAR BUTTON ================= -->
       <div class="mb-4">
         <p x-show="sidebarOpen" class="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 mb-2">Campuses</p>
-        <button @click="active='campuses'"  class="sidebar-btn w-full flex items-center" :class="active==='campuses' && 'bg-primary/10 text-primary border-l-4 border-primary'">
+        @foreach ($campuses as $campus)
+        <button @click="active='campuses'"  class="sidebar-btn w-full flex items-center">
           <span class="sidebar-icon-wrap">
             <svg class="flex-shrink-0 transition-[width,height] duration-200" :class="sidebarOpen ? 'w-5 h-5' : 'w-7 h-7'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l9-4 9 4-9 4-9-4zm2 6l7 3 7-3m-7 3v5"/>
             </svg>
           </span>
           {{-- <span x-show="sidebarOpen" class="ml-3 truncate">Campuses</span> --}}
-          <div class="grid">
-            @foreach ($campuses as $campus)
-              <a href=""
-                class="block px-3 py-2 rounded-lg hover:bg-slate-100 ml-3 truncate">
-                  {{ $campus->name }}
-              </a>
-          @endforeach
-        </div>
+            
+              <span x-show="sidebarOpen" class="ml-3 truncate">
+                {{ $campus->name }}
+              </span>
         </button>
+          @endforeach
       </div>
       <!-- ================= END CAMPUSES SIDEBAR ================= -->
       <!-- SUPPORT -->

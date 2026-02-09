@@ -85,7 +85,7 @@ new class extends Component {
     
 }; ?>
 
-<div @click.away="addAssetModalOpen = false" class="max-w-xl mx-auto p-6 bg-white rounded shadow space-y-6">
+<div @click.away="addAssetModalOpen = false" class="w-[550px] mx-auto p-6 bg-white rounded shadow space-y-6">
 
     <h2 class="text-xl font-semibold">Create Asset</h2>
 

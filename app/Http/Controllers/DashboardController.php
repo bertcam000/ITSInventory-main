@@ -2,43 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
-use App\Models\Campus;
 use Illuminate\Http\Request;
 
-class DepartmentController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = Department::query()
-            ->with(['PcAssignments', 'campus']);
-
-       if ($request->filled('name')) {
-            $search = strtolower($request->name);
-
-            $query->whereRaw(
-                'LOWER(name) LIKE ?',
-                ["%{$search}%"]
-            );
-        }
-
-        if ($request->filled('campus')) {
-            $query->where('campus_id', $request->campus);
-        }
-
-        $departments = $query->paginate(10)->withQueryString();
-
-        // For dropdown + counts
-        $campuses = Campus::withCount('department')->get();
-        $totalDepartments = Department::count();
-
-        return view(
-            'pages.departments.index',
-            compact('departments', 'campuses', 'totalDepartments')
-        );
+        return view('pages.dashboard.index');
     }
 
     /**

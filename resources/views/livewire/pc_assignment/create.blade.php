@@ -150,9 +150,11 @@ new class extends Component {
                         {{ $campus ? 'Select Department' : 'Select Campus First' }}
                     </option>
 
-                    @foreach ($this->getDepartmentsProperty() as $dept)
+                    @forelse ($this->getDepartmentsProperty() as $dept)
                         <option value="{{ $dept->id }}">{{ $dept->name }}</option>
-                    @endforeach
+                    @empty
+                        <option value="" disabled>No data found.</option>
+                    @endforelse
                 </select>
                 <x-input-error :messages="$errors->get('department')" class="mt-2" />
             </div>

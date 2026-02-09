@@ -7,6 +7,7 @@ use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PcAssignmentController;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Campus;
 
 Route::view('/', 'welcome');
@@ -31,15 +32,21 @@ Route::get('/show-qr', [QrCodeController::class, 'show']);
 Route::get('/qrcode', function () {
     return view('qrcode');
     })->name('qrcode');
-    
+
+// Inventory
 Route::get('/inventory', [AssetController::class, 'index']);
 Route::get('/inventory/result/{asset}', [AssetController::class, 'show']);
 // Route::view('/res', 'pages.inventory.result');
 
+// Assigned PC
 Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
+Route::get('/assigned-pc/{department}', [PcAssignmentController::class, 'show']);
 
 Route::get('/department', [DepartmentController::class, 'index']);
 Route::get('/campus', [CampusController::class, 'index']);
+
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::view('/testing', 'test.test');
 

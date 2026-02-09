@@ -34,10 +34,10 @@
   $monName    = trim(($mon?->brand ?? '').' '.($mon?->model ?? '')) ?: '—';
 
   // Example spec fields (adjust to your columns)
-  $cpu        = $spec->cpu ?? null;
-  $ram        = $spec->ram ?? null;
+  $cpu        = $spec->processor ?? null;
+  $ram        = $spec->memory ?? null;
   $storage    = $spec->storage ?? null;
-  $graphics   = $spec->graphics ?? null;
+  $graphics   = $spec->videocard ?? null;
 
   $monitorSize = $spec->size ?? null;
   $resolution  = $spec->resolution ?? null;

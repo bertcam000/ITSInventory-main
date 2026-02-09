@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PcAssignment;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class PcAssignmentController extends Controller
@@ -41,9 +42,10 @@ class PcAssignmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Department $department)
     {
-        //
+        $dept = PcAssignment::where('department_id', $department->id)->get();
+        dd($dept);
     }
 
     /**
