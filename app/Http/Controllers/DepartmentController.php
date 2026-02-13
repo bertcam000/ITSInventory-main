@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Campus;
+use App\Models\PcAssignment;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -60,10 +61,17 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+   public function show($departmentId)
     {
-        //
+        $department = Department::with([
+            'pcAssignments.systemUnit',
+            'pcAssignments.monitor',
+            'campus'
+        ])->findOrFail($departmentId);
+
+        return view('pages.departments.result', compact('department'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

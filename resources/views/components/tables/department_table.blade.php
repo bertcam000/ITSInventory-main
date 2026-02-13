@@ -80,7 +80,7 @@
                 <td class="px-6 py-4 text-gray-900">{{ $department->name }}</td>
                 <td class="px-6 py-4 text-gray-900">{{ $department->campus->name }}</td>
                 <td class="px-6 py-4 text-gray-900">{{ $department->PcAssignments->count() }}</td>
-                <td class="px-6 py-4"><a href="/assigned-pc/{{ $department->id }}" class="text-primary hover:text-primaryDark text-xs font-medium">View →</a></td>
+                <td class="px-6 py-4"><a href="/department/result/{{ $department->id }}" class="text-primary hover:text-primaryDark text-xs font-medium">View →</a></td>
             </tr>
             @empty
                 <td colspan="7" class="px-6 py-4 text-center text-gray-500">No Data Found</td>

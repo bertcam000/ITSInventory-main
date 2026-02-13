@@ -21,10 +21,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 
     // 
-Route::view('/form', 'form');
-Route::view('/test', 'test');
 Route::view('/scancode', 'scan');
-// Route::view('/inventory', 'inventory.index');
 Route::post('/submit', [QrCodeController::class, 'generate']);
 Route::post('/scan', [QrCodeController::class, 'scan']);
 Route::get('/show-qr', [QrCodeController::class, 'show']);
@@ -36,13 +33,13 @@ Route::get('/qrcode', function () {
 // Inventory
 Route::get('/inventory', [AssetController::class, 'index']);
 Route::get('/inventory/result/{asset}', [AssetController::class, 'show']);
-// Route::view('/res', 'pages.inventory.result');
 
 // Assigned PC
 Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
 Route::get('/assigned-pc/{department}', [PcAssignmentController::class, 'show']);
 
 Route::get('/department', [DepartmentController::class, 'index']);
+Route::get('/department/result/{department}', [DepartmentController::class, 'show']);
 Route::get('/campus', [CampusController::class, 'index']);
 
 // Dashboard
