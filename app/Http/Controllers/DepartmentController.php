@@ -63,13 +63,25 @@ class DepartmentController extends Controller
      */
    public function show($departmentId)
     {
-        $department = Department::with([
-            'pcAssignments.systemUnit',
-            'pcAssignments.monitor',
-            'campus'
-        ])->findOrFail($departmentId);
+        $department = Department::with('campus')
+            ->findOrFail($departmentId);
 
-        return view('pages.departments.result', compact('department'));
+        $search = request('name');
+
+        $pcAssignments = PcAssignment::with([
+                'systemUnit',
+                'monitor'
+            ])
+            ->where('department_id', $departmentId)
+
+            ->when($search, function ($query) use ($search) {
+                $query->where('assigned_to', 'like', "%$search%");
+            })
+
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('pages.departments.result', compact('department', 'pcAssignments'));
     }
 
 

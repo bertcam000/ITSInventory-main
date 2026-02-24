@@ -183,7 +183,7 @@
   <div class="flex-1 flex flex-col min-w-0 " :class="sidebarOpen ? 'md:ml-64' : 'md:ml-20'">
 
     <!-- TOPBAR -->
-    <header class="topbar-height flex items-center justify-between px-3 sm:px-5 md:px-6 sticky top-0 z-30 transition-all duration-300" :class="topbarScrolled ? 'topbar-scrolled' : 'topbar-plain'">
+    {{-- <header class="topbar-height flex items-center justify-between px-3 sm:px-5 md:px-6 sticky top-0 z-30 transition-all duration-300" :class="topbarScrolled ? 'topbar-scrolled' : 'topbar-plain'">
         <div class="flex items-center gap-3 min-w-0 flex-1">
             <button @click="sidebarOpen = !sidebarOpen" class="flex-shrink-0 p-2 -ml-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors md:hidden">
                 <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -196,7 +196,7 @@
                 IA
             </div>
         </div>
-    </header>
+    </header> --}}
 
     <!-- CONTENT -->
     <main x-cloak class="main-content-padding space-y-6 bg-gray-50 flex-1 min-w-0 overflow-y-auto" @scroll.passive="topbarScrolled = $event.target.scrollTop > 8">
