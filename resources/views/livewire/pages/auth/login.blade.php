@@ -28,7 +28,7 @@ new #[Layout('layouts.guest')] class extends Component
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form wire:submit="login">
+    {{-- <form wire:submit="login">
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -67,5 +67,50 @@ new #[Layout('layouts.guest')] class extends Component
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+    </form> --}}
+
+    {{--  --}}
+
+    <form class="space-y-5" wire:submit="login">
+
+        <div class="form-input">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+            <input
+                wire:model="form.email" id="email"
+                type="email"
+                placeholder="itstaff@company.com"
+                class="w-full px-4 py-3 rounded-lg focus:outline-none transition"
+            />
+            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+        </div>
+
+        <div class="form-input">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+            <input
+                wire:model="form.password" id="password"
+                type="password"
+                placeholder="••••••••"
+                class="w-full px-4 py-3 rounded-lg focus:outline-none transition"
+            />
+            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+        </div>
+
+        <div class="flex items-center justify-between text-sm">
+            <label class="flex items-center gap-2">
+                <input wire:model="form.remember" id="remember" type="checkbox" class="rounded border-gray-300 accent-primary">
+                <span class="text-gray-600">Remember me</span>
+            </label>
+            <a href="{{ route('password.request') }}" class="text-primary hover:text-primaryDark font-medium transition">Forgot password?</a>
+        </div>
+
+        <button
+            type="submit"
+            class="w-full btn-submit text-white py-3 rounded-lg font-semibold hover:shadow-lg">
+            Login
+        </button>
     </form>
+    
 </div>
+
+
+

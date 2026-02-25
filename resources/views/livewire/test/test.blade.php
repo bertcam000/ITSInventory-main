@@ -55,6 +55,7 @@ new class extends Component {
         $this->validate();
 
         $asset = \App\Models\Asset::create([
+            'user_id' => Auth::user()->id,
             'asset_type' => $this->asset_type === 'pc' ? 'system_unit' : $this->asset_type,
             'serial_number' => $this->serial_number,
             'brand' => $this->brand,
@@ -107,8 +108,8 @@ new class extends Component {
                 <option value="monitor">Monitor</option>
                 <option value="laptop">Laptop</option>
                 <option value="printer">Printer</option>
-                <option value="mouse">Mouse</option>
-                <option value="keyboard">Keyboard</option>
+                <option value="access_point">Access Point</option>
+                {{-- <option value="keyboard">Keyboard</option> --}}
             </select>
             @error('asset_type') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
         </div>

@@ -10,7 +10,9 @@ use App\Http\Controllers\CampusController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Campus;
 
-Route::view('/', 'welcome');
+Route::view('/', 'home.home');
+
+Route::view('/s', 'home.login')->name('login');;
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -30,25 +32,27 @@ Route::get('/qrcode', function () {
     return view('qrcode');
     })->name('qrcode');
 
-// Inventory
-Route::get('/inventory', [AssetController::class, 'index']);
-Route::get('/inventory/result/{asset}', [AssetController::class, 'show']);
+Route::middleware('auth')->group(function() {
+    // Inventory
+    Route::get('/inventory', [AssetController::class, 'index']);
+    Route::get('/inventory/result/{asset}', [AssetController::class, 'show']);
 
-// Assigned PC
-Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
-Route::get('/assigned-pc/{department}', [PcAssignmentController::class, 'show']);
+    // Assigned PC
+    Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
+    Route::get('/assigned-pc/{department}', [PcAssignmentController::class, 'show']);
 
-Route::get('/department', [DepartmentController::class, 'index']);
-Route::get('/department/result/{department}', [DepartmentController::class, 'show']);
-Route::get('/campus', [CampusController::class, 'index']);
+    Route::get('/department', [DepartmentController::class, 'index']);
+    Route::get('/department/result/{department}', [DepartmentController::class, 'show']);
+    Route::get('/campus', [CampusController::class, 'index']);
 
-// Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index']);
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::view('/testing', 'test.test');
+    Route::view('/testing', 'test.test');
 
-// Route::view('/item-list', 'item-list');
+    // Route::view('/item-list', 'item-list');
 
-// Route::post('/create', [ItemCreationController::class, 'create']);
+    // Route::post('/create', [ItemCreationController::class, 'create']);
+});
 
 require __DIR__.'/auth.php';
