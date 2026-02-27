@@ -11,9 +11,9 @@
 
 @php
   $assetTitle = trim(($asset->brand ?? '').' '.($asset->model ?? '')) ?: 'Asset';
-  $serial     = $asset->serial_number ?? '—';
-  $status     = $asset->status ?? '—';
-  $type       = $asset->asset_type ?? '—';
+  $serial     = $asset->serial_number ?? 'NA';
+  $status     = $asset->status ?? 'NA';
+  $type       = $asset->asset_type ?? 'NA';
 
   // Specs: pick based on type
   $spec = null;
@@ -21,17 +21,17 @@
   if ($type === 'monitor')     $spec = $asset->monitorSpec ?? null;
 
   // Assignment (safe)
-  $deptName   = $assignment?->department?->name ?? '—';
-  $campusName = $assignment?->department?->campus?->name ?? '—';
+  $deptName   = $assignment?->department?->name ?? 'NA';
+  $campusName = $assignment?->department?->campus?->name ?? 'NA';
 
   $su         = $assignment?->systemUnit;
   $mon        = $assignment?->monitor;
 
   $suSerial   = $su?->serial_number ?? '—';
-  $suName     = trim(($su?->brand ?? '').' '.($su?->model ?? '')) ?: '—';
+  $suName     = trim(($su?->brand ?? '').' '.($su?->model ?? '')) ?: 'NA';
 
   $monSerial  = $mon?->serial_number ?? '—';
-  $monName    = trim(($mon?->brand ?? '').' '.($mon?->model ?? '')) ?: '—';
+  $monName    = trim(($mon?->brand ?? '').' '.($mon?->model ?? '')) ?: 'NA';
 
   // Example spec fields (adjust to your columns)
   $cpu        = $spec->processor ?? null;
@@ -42,8 +42,8 @@
   $monitorSize = $spec->size ?? null;
   $resolution  = $spec->resolution ?? null;
 
-  $createdAt  = optional($asset->created_at)->format('M d, Y') ?? '—';
-  $updatedAt  = optional($asset->updated_at)->format('M d, Y') ?? '—';
+  $createdAt  = optional($asset->created_at)->format('M d, Y') ?? 'NA';
+  $updatedAt  = optional($asset->updated_at)->format('M d, Y') ?? 'NA';
 
   // QR value
   $qrUrl = $asset->qr_url ?? url('/inventory/result/'.$asset->id);

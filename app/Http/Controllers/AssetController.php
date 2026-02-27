@@ -109,8 +109,19 @@ class AssetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Asset $asset)
     {
-        //
+        if ($asset->asset_type === 'system_unit' && $asset->systemUnitSpec) {
+            $asset->systemUnitSpec->delete();
+        }
+
+        if ($asset->asset_type === 'monitor' && $asset->monitorSpec) {
+            $asset->monitorSpec->delete();
+        }
+
+        $asset->delete();
+
+        return redirect('/inventory')
+            ->with('success', 'Asset deleted successfully.');
     }
 }

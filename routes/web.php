@@ -12,7 +12,7 @@ use App\Models\Campus;
 
 Route::view('/', 'home.home');
 
-Route::view('/s', 'home.login')->name('login');;
+Route::view('/login', 'home.login')->name('login');;
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function() {
     // Inventory
     Route::get('/inventory', [AssetController::class, 'index']);
     Route::get('/inventory/result/{asset}', [AssetController::class, 'show']);
+    Route::delete('/asset/delete/{asset}', [AssetController::class, 'destroy']);
 
     // Assigned PC
     Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);

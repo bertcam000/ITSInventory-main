@@ -90,11 +90,11 @@ new class extends Component {
 
     <h2 class="text-xl font-semibold">Create Asset</h2>
 
-    @if (session('success'))
+    {{-- @if (session('success'))
         <div class="p-3 bg-green-100 text-green-700 rounded">
             {{ session('success') }}
         </div>
-    @endif
+    @endif --}}
 
     <form wire:submit.prevent="save" class="space-y-4">
 
