@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/inventory', [AssetController::class, 'index']);
     Route::get('/inventory/result/{asset}', [AssetController::class, 'show']);
     Route::delete('/asset/delete/{asset}', [AssetController::class, 'destroy']);
+    Route::get('/asset/update/{asset}', [AssetController::class, 'edit']);
+    Route::patch('/asset/update/{asset}', [AssetController::class, 'update']);
+    // Route::view('/edit', 'pages.inventory.edit');
 
     // Assigned PC
     Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);

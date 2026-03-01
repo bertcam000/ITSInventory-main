@@ -19,10 +19,6 @@ class AssetController extends Controller
             $query->where('asset_type', $request->asset_type);
         }
 
-        // if ($request->filled('brand')) {
-        //     $query->where('brand', 'like', '%'.$request->brand.'%');
-        // }
-
         if ($request->filled('status')) {
             $query->where('status', 'like', '%'.$request->status.'%');
         }
@@ -93,17 +89,83 @@ class AssetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Asset $asset, Request $request)
     {
-        //
+        $asset->load(['systemUnitSpec', 'monitorSpec']);
+
+        return view('pages.inventory.edit', compact('asset'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, Asset $asset)
     {
-        //
+        $assetType = $asset->asset_type;
+
+        $baseRules = [
+            'serial_number' => 'nullable|string|max:255|unique:assets,serial_number,' . $asset->id,
+            'brand'         => 'required|string|max:255',
+            'model'         => 'required|string|max:255',
+            'status'        => 'required|in:available,assigned,repair,retired',
+            'remarks'       => 'nullable|string',
+        ];
+
+        $specRules = [];
+
+        if (in_array($assetType, ['system_unit', 'laptop'])) {
+            $specRules = [
+                'processor' => 'nullable|string|max:255',
+                'memory'    => 'nullable|string|max:255',
+                'storage'   => 'nullable|string|max:255',
+                'videocard' => 'nullable|string|max:255',
+            ];
+        } elseif ($assetType === 'monitor') {
+            $specRules = [
+                'size' => 'nullable|string|max:255',
+            ];
+        }
+
+        $validated = $request->validate(array_merge($baseRules, $specRules));
+
+        DB::transaction(function () use ($asset, $validated, $assetType) {
+
+            $asset->update([
+                'serial_number' => $validated['serial_number'] ?? null,
+                'brand'         => $validated['brand'],
+                'model'         => $validated['model'],
+                'status'        => $validated['status'],
+                'remarks'       => $validated['remarks'] ?? null,
+            ]);
+
+            if (in_array($assetType, ['system_unit', 'laptop'])) {
+                $asset->systemUnitSpec()->updateOrCreate(
+                    ['asset_id' => $asset->id],
+                    [
+                        'processor' => $validated['processor'] ?? null,
+                        'memory'    => $validated['memory'] ?? null,
+                        'storage'   => $validated['storage'] ?? null,
+                        'videocard' => $validated['videocard'] ?? null,
+                    ]
+                );
+
+                $asset->monitorSpec()->delete();
+            }
+
+            if ($assetType === 'monitor') {
+                $asset->monitorSpec()->updateOrCreate(
+                    ['asset_id' => $asset->id],
+                    [
+                        'size' => $validated['size'] ?? null,
+                    ]
+                );
+
+                $asset->systemUnitSpec()->delete();
+            }
+        });
+
+        return back()->with('success', 'Asset updated successfully.');
     }
 
     /**

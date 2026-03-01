@@ -73,8 +73,7 @@
                         <option value="laptop" {{ request('asset_type') == 'laptop' ? 'selected' : '' }}>Laptop</option>
                         <option value="monitor" {{ request('asset_type') == 'monitor' ? 'selected' : '' }}>Monitor</option>
                         <option value="printer" {{ request('asset_type') == 'printer' ? 'selected' : '' }}>Printer</option>
-                        <option value="keyboard" {{ request('asset_type') == 'keyboard' ? 'selected' : '' }}>Keyboard</option>
-                        <option value="mouse" {{ request('asset_type') == 'mouse' ? 'selected' : '' }}>Mouse</option>
+                        <option value="access_point" {{ request('asset_type') == 'access_point' ? 'selected' : '' }}>Access Point</option>
                     </select>
                     <select name="status" id="status" wire:model.live="status" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
                         <option value="" {{ request('status') ? '' : 'selected' }}>All Statuses</option>
@@ -85,7 +84,7 @@
                 </div>
             </form>
           </div>
-          <div class="overflow-x-auto" >
+          {{-- <div class="overflow-x-auto" >
             <table class="w-full text-sm">
               <thead class="bg-gray-50 border-b border-gray-200">
                 <tr>
@@ -119,13 +118,11 @@
 
                     <td class="px-6 py-4 text-gray-900">{{ $asset->status }}</td>
 
-                    <!-- ACTION -->
                     <td class="px-6 py-4 relative">
                         <button @click="open = !open" class="px-3 py-1 rounded-md hover:bg-gray-100">
                             ⋮
                         </button>
 
-                        <!-- Dropdown -->
                         <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute left-14 top-0 mt-0 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-100">
                             <a href="/inventory/result/{{ $asset->id }}" 
                                 class="block px-4  text-sm hover:bg-gray-50 text-primary">
@@ -135,14 +132,11 @@
                             <a href="" class="block px-4  text-sm hover:bg-gray-50">Edit</a>
                             
                         </div>
-                        {{--  --}}
                         <div x-show="dl" x-cloak
                             class="fixed inset-0 flex items-center justify-center z-50">
                             
-                            <!-- Overlay -->
                             <div class="fixed inset-0 bg-black bg-opacity-50" @click="open = false"></div>
 
-                            <!-- Modal Content -->
                             <div class="bg-white rounded-lg shadow-lg w-96 p-6 z-50"
                                 x-transition:enter="transition ease-out duration-300"
                                 x-transition:enter-start="opacity-0 scale-90"
@@ -171,11 +165,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{--  --}}
                     </td>
-
-                    
-                    
                 </tr>
                 @empty
                 <tr>
@@ -189,7 +179,107 @@
             <div class="p-4">
                 {{ $assets->links() }}
             </div>
-          </div>
+          </div> --}}
+
+          {{--  --}}
+          
+
+          <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+              <table class="w-full text-sm text-left rtl:text-right text-body">
+                  <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                      <tr>
+                          <th scope="col" class="px-6 py-3 font-medium">Asset</th>
+                          <th scope="col" class="px-6 py-3 font-medium">Serial Number</th>
+                          <th scope="col" class="px-6 py-3 font-medium">Brand</th>
+                          <th scope="col" class="px-6 py-3 font-medium">Model</th>
+                          <th scope="col" class="px-6 py-3 font-medium">Specs</th>
+                          <th scope="col" class="px-6 py-3 font-medium">Status</th>
+                          <th scope="col" class="px-6 py-3 font-medium">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    @forelse ($assets as $asset)
+                      <tr class="bg-neutral-primary border-b border-default" x-data="{ open: false, dl: false }">
+                        <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $asset->asset_type }}</th>
+                        <td class="px-6 py-4">{{ $asset->serial_number }}</td>
+                        <td class="px-6 py-4">{{ $asset->brand }}</td>
+                        <td class="px-6 py-4">{{ $asset->model }}</td>
+                        <td class="px-6 py-4 text-xs">
+                            @if ($asset->asset_type === 'system_unit' || $asset->asset_type === 'laptop')
+                              <div>{{ $asset->systemUnitSpec->processor }}</div>
+                              <div>{{ $asset->systemUnitSpec->memory . ' / ' . $asset->systemUnitSpec->storage }}</div>
+                              <div>{{ $asset->systemUnitSpec->videocard }}</div>
+                            @elseif ($asset->asset_type === 'monitor')
+                                <div>Size: {{ $asset->monitorSpec->size }}</div>
+                            @endif
+                        </td>
+                        <td class="px-6 py-4">{{ $asset->status }}</td>
+                        <td class="px-6 py-4 relative">
+                          <button @click="open = !open" class="px-3 py-1 rounded-md hover:bg-gray-100">
+                              ⋮
+                          </button>
+
+                          <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute right-14 top-3 space-y-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-100">
+                              
+                              <button @click="dl = true" class="block px-4  text-sm hover:bg-gray-50 text-red-500">Delete</button>
+                              <a href="/asset/update/{{ $asset->id }}" class="block px-4  text-sm hover:bg-gray-50">Edit</a>
+                              <a href="/inventory/result/{{ $asset->id }}" 
+                                  class="block px-4  text-sm hover:bg-gray-50 text-primary">
+                                  View
+                              </a>
+                          </div>
+
+                          <div x-show="dl" x-cloak
+                              class="fixed inset-0 flex items-center justify-center z-50">
+                              
+                              <div class="fixed inset-0 bg-black bg-opacity-50" @click="open = false"></div>
+
+                              <div class="bg-white rounded-lg shadow-lg w-96 p-6 z-50"
+                                  x-transition:enter="transition ease-out duration-300"
+                                  x-transition:enter-start="opacity-0 scale-90"
+                                  x-transition:enter-end="opacity-100 scale-100"
+                                  x-transition:leave="transition ease-in duration-200"
+                                  x-transition:leave-start="opacity-100 scale-100"
+                                  x-transition:leave-end="opacity-0 scale-90">
+
+                                  <h2 class="text-lg font-semibold text-gray-800 mb-4">Delete Confirmation {{ $asset->id }}</h2>
+                                  <p class="text-gray-600 mb-6">Are you sure? All Applicant applied to this job will be deleted</p>
+
+                                  <div class="flex justify-end gap-3">
+                                      <button @click="dl = false" 
+                                              class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                                          Cancel
+                                      </button>
+
+                                      <form method="POST" action="/asset/delete/{{ $asset->id }}">
+                                          @csrf
+                                          @method('DELETE')
+                                          <button type="submit" 
+                                                  class="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white">
+                                              Delete
+                                          </button>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                        </td>
+                      </tr>
+                      @empty
+                      <tr>
+                          <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                              No Data Found
+                          </td>
+                      </tr>
+                    @endforelse
+                  </tbody>
+                </table>
+                <div class="p-4">
+                  {{ $assets->links() }}
+              </div>
+            </div>
+            {{--  --}}
+          
         </div>
 
         <!-- Asset movement logs -->
