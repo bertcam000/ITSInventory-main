@@ -41,12 +41,12 @@ class AssetController extends Controller
             'system_unit' => $assetTypeCounts['system_unit'] ?? 0,
             'laptop'      => $assetTypeCounts['laptop'] ?? 0,
             'monitor'     => $assetTypeCounts['monitor'] ?? 0,
-            'printer'     => $assetTypeCounts['printer'] ?? 0,
+            'access_point'     => $assetTypeCounts['access_point'] ?? 0,
             'assigned'    => $statusCounts['assigned'] ?? 0,
         ];  
 
 
-        $assets = $query->paginate(5)->withQueryString();
+        $assets = $query->latest()->paginate(5)->withQueryString();
 
 
         return view('pages.inventory.index', compact('assets', 'statusCards'));

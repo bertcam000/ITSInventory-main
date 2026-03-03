@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="flex items-baseline gap-2">
-              <p class="text-3xl font-bold text-gray-900">567</p>
+              <p class="text-3xl font-bold text-gray-900">{{ $totalAssets }}</p>
               <div class="flex items-center text-green-600 text-sm font-medium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
@@ -87,7 +87,7 @@
               </div>
             </div>
             <div class="flex items-baseline gap-2">
-              <p class="text-3xl font-bold text-gray-900">498</p>
+              <p class="text-3xl font-bold text-gray-900">{{ $activeDevices }}</p>
               <div class="flex items-center text-green-600 text-sm font-medium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
@@ -108,7 +108,7 @@
               </div>
             </div>
             <div class="flex items-baseline gap-2">
-              <p class="text-3xl font-bold text-gray-900">42</p>
+              <p class="text-3xl font-bold text-gray-900">{{ $underMaintenance }}</p>
               <div class="flex items-center text-red-600 text-sm font-medium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
@@ -129,7 +129,7 @@
               </div>
             </div>
             <div class="flex items-baseline gap-2">
-              <p class="text-3xl font-bold text-gray-900">28</p>
+              <p class="text-3xl font-bold text-gray-900">{{ $openTickets }}</p>
               <div class="flex items-center text-green-600 text-sm font-medium">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
@@ -141,132 +141,85 @@
           </div>
         </div>
 
-        <!-- Charts Row -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <!-- Asset Distribution by Campus -->
           <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Assets by Campus</h3>
             <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-primary"></div>
-                  <span class="text-sm text-gray-700">Main Campus</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">25%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-primary h-2 rounded-full" style="width: 25%"></div>
-              </div>
               
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                  <span class="text-sm text-gray-700">Annex Campus</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">19%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-blue-500 h-2 rounded-full" style="width: 19%"></div>
-              </div>
               
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-purple-500"></div>
-                  <span class="text-sm text-gray-700">MV Campus</span>
+              @foreach ($assetsByCampus as $index => $campus)
+                @php
+                    $colors = [
+                        'bg-primary',
+                        'bg-blue-500',
+                        'bg-purple-500',
+                        'bg-indigo-500',
+                        'bg-pink-500',
+                        'bg-yellow-500',
+                    ];
+
+                    $color = $colors[$index % count($colors)];
+
+                    $width = $maxCampusTotal > 0
+                        ? ($campus->total / $maxCampusTotal) * 100
+                        : 0;
+                @endphp
+
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-700">
+                        {{ $campus->campus_name }}
+                    </span>
+                    <span class="text-sm font-semibold text-gray-900">
+                        {{ $campus->total }}
+                    </span>
                 </div>
-                <span class="text-sm font-semibold text-gray-900">17%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-purple-500 h-2 rounded-full" style="width: 17%"></div>
-              </div>
-              
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-indigo-500"></div>
-                  <span class="text-sm text-gray-700">Heavenly Campus</span>
+
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                    <div
+                        class="{{ $color }} h-2 rounded-full transition-all"
+                        style="width: {{ $campus->total }}%">
+                    </div>
                 </div>
-                <span class="text-sm font-semibold text-gray-900">15%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-indigo-500 h-2 rounded-full" style="width: 15%"></div>
-              </div>
-              
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-pink-500"></div>
-                  <span class="text-sm text-gray-700">Criminology Campus</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">13%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-pink-500 h-2 rounded-full" style="width: 13%"></div>
-              </div>
-              
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <span class="text-sm text-gray-700">Bulacan Campus</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">11%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-yellow-500 h-2 rounded-full" style="width: 11%"></div>
-              </div>
+              @endforeach
             </div>
           </div>
 
-          <!-- Assets by Department -->
           <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Assets by Department</h3>
             <div class="space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span class="text-sm text-gray-700">IT Department</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">32%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-green-500 h-2 rounded-full" style="width: 32%"></div>
-              </div>
               
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-                  <span class="text-sm text-gray-700">Academic</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">28%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-blue-500 h-2 rounded-full" style="width: 28%"></div>
-              </div>
+              @foreach ($assetsByDepartment as $index => $department)
+                  @php
+                      $colors = [
+                          'bg-green-500',
+                          'bg-blue-500',
+                          'bg-purple-500',
+                          'bg-orange-500',
+                          'bg-red-500',
+                      ];
+                      $color = $colors[$index % count($colors)];
+                  @endphp
+
+                  <div class="flex items-center justify-between">
+                      <span class="text-sm text-gray-700">
+                          {{ $department['name'] }}
+                      </span>
+                      <span class="text-sm font-semibold">
+                          {{ $department['percentage'] }}%
+                      </span>
+                  </div>
+
+                  <div class="w-full bg-gray-200 rounded-full h-2">
+                      <div class="{{ $color }} h-2 rounded-full"
+                            style="width: {{ $department['percentage'] }}%">
+                      </div>
+                  </div>
+              @endforeach
               
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-purple-500"></div>
-                  <span class="text-sm text-gray-700">Administration</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">22%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-purple-500 h-2 rounded-full" style="width: 22%"></div>
-              </div>
-              
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-orange-500"></div>
-                  <span class="text-sm text-gray-700">Finance</span>
-                </div>
-                <span class="text-sm font-semibold text-gray-900">18%</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-orange-500 h-2 rounded-full" style="width: 18%"></div>
-              </div>
             </div>
           </div>
         </div>
 
-        <!-- Recent Activity Table -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200">
           <div class="p-6 border-b border-gray-200">
             <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>

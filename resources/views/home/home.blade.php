@@ -205,7 +205,7 @@
             class="hidden md:block px-3 py-1.5 rounded-md text-sm bg-gray-100 text-black placeholder-gray/70 focus:outline-none transition-all duration-300"
           />
           <a
-            href="login.html"
+            href="/login"
             class="px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 transition-all duration-300 shadow-sm"
           >
             Login
@@ -466,7 +466,7 @@
           Log in to access the operational system dashboard.
         </p>
         <a
-          href="login.html"
+          href="/login"
           class="inline-block bg-white text-primary font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all"
         >
           Login to System

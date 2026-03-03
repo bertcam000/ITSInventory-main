@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Campus;
+use App\Models\Department;
+use App\Models\PcAssignment;
 
 class CampusController extends Controller
 {
@@ -11,8 +14,13 @@ class CampusController extends Controller
      */
     public function index()
     {
-        // return view('campus.index');
-        return view('pages.campus.index');
+        $stats = [
+            'campus' => Campus::with('department')->latest()->paginate(5),
+            'total_campus'      => Campus::count(),
+            'total_departments' => Department::count(),
+            'total_assets'      => PcAssignment::count(),
+        ];
+        return view('pages.campus.index', compact('stats'));
     }
 
     /**

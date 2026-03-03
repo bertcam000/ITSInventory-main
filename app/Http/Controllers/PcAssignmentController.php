@@ -13,11 +13,18 @@ class PcAssignmentController extends Controller
      */
     public function index(Request $request)
     {
-        $query = PcAssignment::query()->with(['systemUnit', 'monitor', 'department.campus']);
+        $query = PcAssignment::query()
+            ->with(['systemUnit', 'monitor', 'department.campus']);
 
-        if ($request->filled('assigned_to')) {
-            $query->where('assigned_to', 'like', '%' . $request->assigned_to . '%');
+        if ($request->filled('name')) {
+            $search = $request->name;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('asset_id', 'like', "%{$search}%")
+                ->orWhere('assigned_to', 'like', "%{$search}%");
+            });
         }
+
         $PcAssigned = $query->paginate(10)->withQueryString();
 
         return view('pages.assigned_pc.index', compact('PcAssigned'));

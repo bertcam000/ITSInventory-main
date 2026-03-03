@@ -112,6 +112,18 @@
       <!-- ================= CAMPUSES SIDEBAR BUTTON ================= -->
       <div class="mb-4">
         <p x-show="sidebarOpen" class="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 mb-2">Campuses</p>
+        <button   class="sidebar-btn w-full flex items-center">
+          <span class="sidebar-icon-wrap">
+            <svg class="flex-shrink-0 transition-[width,height] duration-200" :class="sidebarOpen ? 'w-5 h-5' : 'w-7 h-7'" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l9-4 9 4-9 4-9-4zm2 6l7 3 7-3m-7 3v5"/>
+            </svg>
+          </span>
+          {{-- <span x-show="sidebarOpen" class="ml-3 truncate">Campuses</span> --}}
+            
+              <a href="/campus" class="ml-3 truncate">
+                Campus
+              </a>
+        </button>
         @foreach ($campuses as $campus)
         <button @click="active='campuses'"  class="sidebar-btn w-full flex items-center">
           <span class="sidebar-icon-wrap">
@@ -147,23 +159,8 @@
     </nav>
 
     <!-- User Section -->
-    <div class="p-4 flex-shrink-0">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primaryDark flex items-center justify-center flex-shrink-0">
-          <span class="text-white font-semibold text-sm">IA</span>
-        </div>
-        <div x-show="sidebarOpen" class="flex-1 min-w-0">
-          <p class="text-sm font-semibold text-gray-900 truncate">ITS Admin</p>
-          <p class="text-xs text-gray-500 truncate">Admin Manager</p>
-        </div>
-      </div>
-      <a x-show="sidebarOpen" href="#" class="mt-3 flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-        </svg>
-        Log out
-      </a>
-    </div>
+    <livewire:layout.navigation />
+    
 
     <!-- Collapse Button -->
     <button @click="sidebarOpen=!sidebarOpen" class="h-12 hover:bg-gray-50 flex items-center justify-center transition-colors flex-shrink-0">
@@ -181,22 +178,6 @@
 
   <!--  MAIN -->
   <div class="flex-1 flex flex-col min-w-0 " :class="sidebarOpen ? 'md:ml-64' : 'md:ml-20'">
-
-    <!-- TOPBAR -->
-    {{-- <header class="topbar-height flex items-center justify-between px-3 sm:px-5 md:px-6 sticky top-0 z-30 transition-all duration-300" :class="topbarScrolled ? 'topbar-scrolled' : 'topbar-plain'">
-        <div class="flex items-center gap-3 min-w-0 flex-1">
-            <button @click="sidebarOpen = !sidebarOpen" class="flex-shrink-0 p-2 -ml-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors md:hidden">
-                <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
-        </div>
-        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-primaryDark flex items-center justify-center text-white font-semibold text-sm cursor-pointer hover:opacity-90 transition-opacity shadow-md ring-2 ring-white">
-                IA
-            </div>
-        </div>
-    </header> --}}
 
     <!-- CONTENT -->
     <main x-cloak class="main-content-padding space-y-6 bg-gray-50 flex-1 min-w-0 overflow-y-auto" @scroll.passive="topbarScrolled = $event.target.scrollTop > 8">

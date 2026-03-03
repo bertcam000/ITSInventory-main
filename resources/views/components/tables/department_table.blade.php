@@ -38,12 +38,12 @@
                     name="name"
                     value="{{ request('name') }}"
                     placeholder="Search department name..."
-                    class="text-sm border border-gray-300 rounded px-3 w-48 py-1"
+                    class="uppercase-input text-sm border border-gray-300 rounded px-3 w-48 py-1"
                 >
 
                 <select
                     name="campus"
-                    class="text-sm border border-gray-300 rounded px-3 w-36 py-1"
+                    class="uppercase-input text-sm border border-gray-300 rounded px-3 w-36 py-1"
                 >
                     <option value="">Campus</option>
 

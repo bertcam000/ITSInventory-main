@@ -90,12 +90,6 @@ new class extends Component {
 
     <h2 class="text-xl font-semibold">Create Asset</h2>
 
-    {{-- @if (session('success'))
-        <div class="p-3 bg-green-100 text-green-700 rounded">
-            {{ session('success') }}
-        </div>
-    @endif --}}
-
     <form wire:submit.prevent="save" class="space-y-4">
 
         <!-- Asset Type -->
@@ -107,7 +101,6 @@ new class extends Component {
                 <option value="pc">PC</option>
                 <option value="monitor">Monitor</option>
                 <option value="laptop">Laptop</option>
-                <option value="printer">Printer</option>
                 <option value="access_point">Access Point</option>
                 {{-- <option value="keyboard">Keyboard</option> --}}
             </select>

@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Asset Details</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+  @media print {
+      body * {
+          visibility: hidden;
+      }
+
+      #qr-print-area,
+      #qr-print-area * {
+          visibility: visible;
+      }
+
+      #qr-print-area {
+          position: absolute;
+          display:flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          left: 0;
+          top: 0;
+          width: 100%;
+          text-align: center;
+      }
+  }
+</style>
+  
 </head>
 
 <body class="bg-slate-100 min-h-screen font-sans text-slate-800">
@@ -81,10 +107,10 @@
             Edit
           </a>
 
-          <a href="{{ url('/inventory/'.$asset->id.'/print-qr') }}"
-             class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
+          <button onclick="window.print()"
+            class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
             Print QR
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -292,34 +318,27 @@
         <!-- QR Card -->
         <div class="rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div class="p-5 sm:p-6">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <h2 class="text-sm font-semibold text-gray-900">QR Code</h2>
-                <p class="mt-1 text-sm text-gray-500">Scan to open this asset.</p>
+            
+
+            <div class="pc-details rounded-2xl border border-gray-100 bg-gray-50 p-5 flex flex-col items-center justify-center">
+              <div id="qr-print-area">
+                <div class="flex justify-center items-center gap-2">
+                  <div class="text-center">
+                    <p class="text-xs text-gray-500">SystemUnit</p>
+                    <p>{{ $suSerial }}</p>
+                  </div>
+                  <div class="text-center">
+                    <p class="text-xs text-gray-500">Monitor</p>
+                    <p>{{ $monSerial }}</p>
+                  </div>
+                </div>
+                <div>
+                  {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->margin(0)->generate($qrUrl) !!}
+                </div>
               </div>
-
-              <div class="flex gap-2">
-                <a href=""
-                   class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                  PNG
-                </a>
-                <a href=""
-                   class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                  SVG
-                </a>
-              </div>
             </div>
 
-            <div class="mt-5 rounded-2xl border border-gray-100 bg-gray-50 p-5 flex items-center justify-center">
-              {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->margin(2)->generate($qrUrl) !!}
-            </div>
-
-            <div class="mt-4 rounded-xl border border-gray-100 bg-gray-50 p-4">
-              <p class="text-xs font-medium text-gray-500">QR URL</p>
-              <p class="mt-1 text-sm font-semibold text-gray-900 break-all">
-                {{ $qrUrl }}
-              </p>
-            </div>
+            
           </div>
         </div>
 
@@ -351,6 +370,7 @@
     </div>
   </div>
 </div>
+
 
 </body>
 </html>

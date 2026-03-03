@@ -13,7 +13,7 @@
           <p class="text-sm font-medium text-gray-600">
             Total Campus 
             <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm font-semibold">
-                {{-- {{ $statusCards['total'] }} --}}5
+                {{ $stats['total_campus'] }}
             </span>
           </p>
         </div>
@@ -23,7 +23,7 @@
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-sm font-medium text-gray-600">Total Campus</h3>
               <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm font-semibold">
-                {{-- {{ $statusCards['system_unit'] }} --}}
+                {{ $stats['total_campus'] }}
               </span>
             </div>
             <p class="text-xs text-gray-500">Lab units and office workstations</p>
@@ -32,7 +32,7 @@
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-sm font-medium text-gray-600">Total Departments</h3>
               <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm font-semibold">
-                {{-- {{ $statusCards['laptop'] }} --}}
+                {{ $stats['total_departments'] }}
               </span>
             </div>
             <p class="text-xs text-gray-500">Issued to faculty and staff</p>
@@ -41,15 +41,59 @@
             <div class="flex items-center justify-between mb-2">
               <h3 class="text-sm font-medium text-gray-600">Total Asset Deployed</h3>
               <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm font-semibold">
-                {{-- {{ $statusCards['monitor'] }} --}}
+                {{ $stats['total_assets'] }}
               </span>
             </div>
             <p class="text-xs text-gray-500">Wireless coverage per building</p>
           </div>
         </div>
 
-        <div>
-            <x-tables.campus_card />
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-100">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Campus Name
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Location
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Departments
+                        </th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="bg-white divide-y divide-gray-100">
+
+                  @forelse ($stats['campus'] as $campus)
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="px-6 py-4 text-sm text-gray-800 font-medium">
+                            {{ $campus->name }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ $campus->location }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            {{ count($campus->department) }}
+                        </td>
+                        <td class="px-6 py-4 text-right text-sm space-x-3">
+                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">
+                                Edit
+                            </button>
+                            <button class="text-red-500 hover:text-red-700 font-medium">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                  @empty
+                    
+                  @endforelse
+                </tbody>
+            </table>
         </div>
         
         <div x-show="campusForm" x-cloak class="px-2 md:px-0 transition-all duration-300 flex h-screen w-full bg-black/20 fixed -top-6 left-0 z-50  justify-center items-center">

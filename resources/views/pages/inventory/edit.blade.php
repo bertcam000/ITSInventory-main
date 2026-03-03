@@ -164,7 +164,7 @@
                 @elseif ($asset->asset_type === 'monitor')
                     <div>
                         <label class="text-sm font-medium text-slate-700">Monitor Size</label>
-                        <textarea rows="1"
+                        <textarea rows="1" name="size"
                         class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                         placeholder="e.g., 24-inch, 1080p, Dell P2419H">{{ $asset->monitorSpec->size ?? '' }}</textarea>
                 @endif

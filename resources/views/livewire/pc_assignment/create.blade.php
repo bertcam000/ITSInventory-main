@@ -119,7 +119,7 @@ new class extends Component {
             <label class="block text-sm text-gray-600 mb-1">Asset ID</label>
             <input type="text"
                    wire:model="asset_id"
-                   class="w-full border rounded-lg px-4 py-2"
+                   class="uppercase-input w-full border rounded-lg px-4 py-2"
                    placeholder="e.g. SPS-001">
             <x-input-error :messages="$errors->get('asset_id')" class="mt-2" />
         </div>
@@ -129,7 +129,7 @@ new class extends Component {
             <div>
                 <label class="block text-sm text-gray-600 mb-1">Campus</label>
                 <select wire:model.live="campus"
-                        class="w-full border rounded-lg px-4 py-2">
+                        class="uppercase-input w-full border rounded-lg px-4 py-2">
                     <option value="">Select Campus</option>
                     @forelse ($this->campuses as $cam)
                         <option value="{{ $cam->id }}">{{ $cam->name }}</option>
@@ -144,7 +144,7 @@ new class extends Component {
             <div>
                 <label class="block text-sm text-gray-600 mb-1">Department</label>
                 <select wire:model="department"
-                        class="w-full border rounded-lg px-4 py-2"
+                        class="uppercase-input w-full border rounded-lg px-4 py-2"
                         @disabled(!$campus)>
                     <option value="">
                         {{ $campus ? 'Select Department' : 'Select Campus First' }}
@@ -164,7 +164,7 @@ new class extends Component {
         <div>
             <label class="block text-sm text-gray-600 mb-1">System Unit</label>
             <select wire:model="systemUnit"
-                    class="w-full border rounded-lg px-4 py-2">
+                    class="uppercase-input w-full border rounded-lg px-4 py-2">
                 <option value="">Select System Unit</option>
                 @forelse ($this->systemUnits as $unit)
                     <option value="{{ $unit->id }}">
@@ -185,7 +185,7 @@ new class extends Component {
         <div>
             <label class="block text-sm text-gray-600 mb-1">Monitor</label>
             <select wire:model="monitor"
-                    class="w-full border rounded-lg px-4 py-2">
+                    class="uppercase-input w-full border rounded-lg px-4 py-2">
                 <option value="">Select Monitor</option>
                 @forelse ($this->monitors as $monitor)
                     <option value="{{ $monitor->id }}">
@@ -206,7 +206,7 @@ new class extends Component {
             <label class="block text-sm text-gray-600 mb-1">Assigned To</label>
             <input type="text"
                    wire:model="assignedTo"
-                   class="w-full border rounded-lg px-4 py-2"
+                   class="uppercase-input w-full border rounded-lg px-4 py-2"
                    placeholder="e.g. Juan Dela Cruz">
             <x-input-error :messages="$errors->get('assignedTo')" class="mt-2" />
         </div>

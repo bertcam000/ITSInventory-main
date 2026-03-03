@@ -51,9 +51,9 @@
           </div>
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <div class="flex items-center justify-between mb-2">
-              <h3 class="text-sm font-medium text-gray-600">Printers & Others</h3>
+              <h3 class="text-sm font-medium text-gray-600">Access Points</h3>
               <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm font-semibold">
-                {{ $statusCards['printer'] }}
+                {{ $statusCards['access_point'] }}
               </span>
             </div>
             <p class="text-xs text-gray-500">Printers, scanners, and peripherals</p>
@@ -200,7 +200,7 @@
                   <tbody>
                     @forelse ($assets as $asset)
                       <tr class="bg-neutral-primary border-b border-default" x-data="{ open: false, dl: false }">
-                        <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ $asset->asset_type }}</th>
+                        <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">{{ Str::title(str_replace('_', ' ', $asset->asset_type)) }}</th>
                         <td class="px-6 py-4">{{ $asset->serial_number }}</td>
                         <td class="px-6 py-4">{{ $asset->brand }}</td>
                         <td class="px-6 py-4">{{ $asset->model }}</td>
@@ -219,20 +219,16 @@
                               ⋮
                           </button>
 
-                          <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute right-14 top-3 space-y-2 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-100">
-                              
-                              <button @click="dl = true" class="block px-4  text-sm hover:bg-gray-50 text-red-500">Delete</button>
-                              <a href="/asset/update/{{ $asset->id }}" class="block px-4  text-sm hover:bg-gray-50">Edit</a>
-                              <a href="/inventory/result/{{ $asset->id }}" 
-                                  class="block px-4  text-sm hover:bg-gray-50 text-primary">
-                                  View
-                              </a>
+                          <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute right-14 top-3 py-2 px-3 flex justify-center items-center gap-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                              <button @click="dl = true" class="text-red-500 hover:bg-gray-200 hover:rounded-lg px-2">Delete</button>
+                              <a href="/asset/update/{{ $asset->id }}" class=" hover:bg-gray-200 hover:rounded-lg px-2">Edit</a>
+                              <a href="/inventory/result/{{ $asset->id }}" class="text-green-500 hover:rounded-lg hover:bg-gray-200 px-2">View</a>
                           </div>
 
                           <div x-show="dl" x-cloak
                               class="fixed inset-0 flex items-center justify-center z-50">
                               
-                              <div class="fixed inset-0 bg-black bg-opacity-50" @click="open = false"></div>
+                              <div class="fixed inset-0 bg-black bg-opacity-50" @click="dl = false"></div>
 
                               <div class="bg-white rounded-lg shadow-lg w-96 p-6 z-50"
                                   x-transition:enter="transition ease-out duration-300"
@@ -242,8 +238,8 @@
                                   x-transition:leave-start="opacity-100 scale-100"
                                   x-transition:leave-end="opacity-0 scale-90">
 
-                                  <h2 class="text-lg font-semibold text-gray-800 mb-4">Delete Confirmation {{ $asset->id }}</h2>
-                                  <p class="text-gray-600 mb-6">Are you sure? All Applicant applied to this job will be deleted</p>
+                                  <h2 class="text-lg font-semibold text-gray-800 mb-4">Delete Confirmation</h2>
+                                  <p class="text-gray-600 mb-6">Are you sure? This asset will permanently deleted</p>
 
                                   <div class="flex justify-end gap-3">
                                       <button @click="dl = false" 

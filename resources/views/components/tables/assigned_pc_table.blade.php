@@ -13,15 +13,15 @@
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex items-center justify-between">
         <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Current Department List </h2>
-        <form action="/department" method="GET">
+        <form action="/assigned-pc" method="GET">
             <div class="flex items-center gap-3">
-                <input type="text" value="{{ request('name') }}" id="name" name="name" placeholder="Search department name..." class="text-sm border border-gray-300 rounded px-3 w-48 py-1">
-                <select name="campus" id="campus" wire:model.live="campus" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
-                    <option value="" {{ request('campus') ? '' : 'selected' }}>Campus</option>
+                <input type="text" value="{{ request('name') }}" id="name" name="name" placeholder="Search asset tag..." class="uppercase-input text-sm border border-gray-300 rounded px-3 w-48 py-1">
+                {{-- <select name="department" id="campus" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
+                    <option value="" {{ request('department') ? '' : 'selected' }}>Department</option>
                     <option value="system_unit" {{ request('campus') == 'Main' ? 'selected' : '' }}>Main</option>
                     <option value="keyboard" {{ request('campus') == 'Annex' ? 'selected' : '' }}>Annex</option>
                     <option value="mouse" {{ request('campus') == 'Mouse' ? 'selected' : '' }}>Mouse</option>
-                </select>
+                </select> --}}
                 <button class="bg-primary text-white px-3 py-1 rounded text-sm">Search</button>
             </div>
         </form>
@@ -30,7 +30,7 @@
         <table class="w-full text-sm">
             <thead class="bg-gray-50 border-b border-gray-200">
             <tr>
-                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Asset ID</th>
+                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Asset Tag</th>
                 <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Assigned To</th>
                 <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Department</th>
                 <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Campus</th>
