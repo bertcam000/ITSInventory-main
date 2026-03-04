@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PcAssignment;
 use App\Models\Department;
+use App\Models\Campus;
 use Illuminate\Http\Request;
 
 class PcAssignmentController extends Controller
@@ -17,17 +18,43 @@ class PcAssignmentController extends Controller
             ->with(['systemUnit', 'monitor', 'department.campus']);
 
         if ($request->filled('name')) {
-            $search = $request->name;
+            $search = trim($request->name);
 
             $query->where(function ($q) use ($search) {
-                $q->where('asset_id', 'like', "%{$search}%")
-                ->orWhere('assigned_to', 'like', "%{$search}%");
+                $q->where('assigned_to', 'like', "%{$search}%")
+                ->orWhereHas('systemUnit', function ($q2) use ($search) {
+                    $q2->where('serial_number', 'like', "%{$search}%")
+                        ->orWhere('asset_tag', 'like', "%{$search}%");
+                })
+                ->orWhereHas('monitor', function ($q2) use ($search) {
+                    $q2->where('serial_number', 'like', "%{$search}%")
+                        ->orWhere('asset_tag', 'like', "%{$search}%");
+                });
             });
+        }
+
+        if ($request->filled('campus')) {
+            $campusId = $request->campus;
+
+            $query->whereHas('department', function ($q) use ($campusId) {
+                $q->where('campus_id', $campusId);
+            });
+        }
+
+        if ($request->filled('department')) {
+            $query->where('department_id', $request->department);
         }
 
         $PcAssigned = $query->paginate(10)->withQueryString();
 
-        return view('pages.assigned_pc.index', compact('PcAssigned'));
+        $campuses = Campus::orderBy('name')->get();
+
+        $departments = Department::query()
+            ->when($request->filled('campus'), fn($q) => $q->where('campus_id', $request->campus))
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.assigned_pc.index', compact('PcAssigned', 'campuses', 'departments'));
     }
 
     /**

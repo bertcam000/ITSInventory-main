@@ -73,8 +73,8 @@
                 <option value="50" {{ request('pages') == '50' ? 'selected' : '' }}>50</option>
               </select>
                 <div class="flex items-center gap-3">
-                    <input type="text" value="{{ request('serial_number') }}" id="serial_number" name="serial_number" placeholder="Search serial number..." class="text-sm border border-gray-300 rounded px-3 w-48 py-1">
-                    <select name="asset_type" id="asset_type" wire:model.live="asset_type" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
+                    <input onchange="this.form.submit()" type="text" value="{{ request('serial_number') }}" id="serial_number" name="serial_number" placeholder="Search serial number..." class="text-sm border border-gray-300 rounded px-3 w-48 py-1">
+                    <select onchange="this.form.submit()" name="asset_type" id="asset_type" wire:model.live="asset_type" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
                         <option value="" {{ request('asset_type') ? '' : 'selected' }}>All Types</option>
                         <option value="system_unit" {{ request('asset_type') == 'system_unit' ? 'selected' : '' }}>System Unit</option>
                         <option value="laptop" {{ request('asset_type') == 'laptop' ? 'selected' : '' }}>Laptop</option>
@@ -82,7 +82,7 @@
                         <option value="printer" {{ request('asset_type') == 'printer' ? 'selected' : '' }}>Printer</option>
                         <option value="access_point" {{ request('asset_type') == 'access_point' ? 'selected' : '' }}>Access Point</option>
                     </select>
-                    <select name="status" id="status" wire:model.live="status" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
+                    <select onchange="this.form.submit()" name="status" id="status" wire:model.live="status" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
                         <option value="" {{ request('status') ? '' : 'selected' }}>All Statuses</option>
                         <option value="available" {{ request('status') == 'available' ? 'selected' : '' }}>Available</option>
                         <option value="assigned" {{ request('status') == 'assigned' ? 'selected' : '' }}>Assigned</option>

@@ -43,7 +43,7 @@
 
   // Specs: pick based on type
   $spec = null;
-  if ($type === 'system_unit') $spec = $asset->systemUnitSpec ?? null;
+  if ($type === 'system_unit' | $type === 'laptop') $spec = $asset->systemUnitSpec ?? null;
   if ($type === 'monitor')     $spec = $asset->monitorSpec ?? null;
 
   // Assignment (safe)
