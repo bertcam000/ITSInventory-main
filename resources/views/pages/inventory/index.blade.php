@@ -1,5 +1,4 @@
 <x-layouts.its_layout>
-
     @if (session('success'))
         <x-notification :message="session('success')" type="success" />
     @endif
@@ -47,7 +46,7 @@
                 {{ $statusCards['monitor'] }}
               </span>
             </div>
-            <p class="text-xs text-gray-500">Wireless coverage per building</p>
+            <p class="text-xs text-gray-500">Total monitor</p>
           </div>
           <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <div class="flex items-center justify-between mb-2">
@@ -56,15 +55,23 @@
                 {{ $statusCards['access_point'] }}
               </span>
             </div>
-            <p class="text-xs text-gray-500">Printers, scanners, and peripherals</p>
+            <p class="text-xs text-gray-500">Total Accesspoint</p>
           </div>
         </div>
 
         <!-- Current asset list -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div class="p-4 border-b border-gray-200 flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Current Asset Total {{ $statusCards['total'] }}</h2>
-            <form action="/inventory" method="GET">
+            {{-- <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Current Asset Total {{ $statusCards['total'] }}</h2> --}}
+            <div>
+              <button onclick="window.print()" class="bg-primary text-white px-3 py-1 rounded text-sm">Print</button>
+            </div>
+            <form action="/inventory" method="GET" class="flex justify-between items-center w-full">
+              <select name="pages" id="rowsPerPage" class="text-sm border border-gray-300 rounded px-3 w-36 py-1 mx-3 w-[60px]">
+                <option value="10" {{ request('pages') == '10' ? 'selected' : '' }} selected>10</option>
+                <option value="25" {{ request('pages') == '25' ? 'selected' : '' }}>25</option>
+                <option value="50" {{ request('pages') == '50' ? 'selected' : '' }}>50</option>
+              </select>
                 <div class="flex items-center gap-3">
                     <input type="text" value="{{ request('serial_number') }}" id="serial_number" name="serial_number" placeholder="Search serial number..." class="text-sm border border-gray-300 rounded px-3 w-48 py-1">
                     <select name="asset_type" id="asset_type" wire:model.live="asset_type" class="text-sm border border-gray-300 rounded px-3 w-36 py-1">
@@ -81,111 +88,16 @@
                         <option value="assigned" {{ request('status') == 'assigned' ? 'selected' : '' }}>Assigned</option>
                     </select>
                     <button class="bg-primary text-white px-3 py-1 rounded text-sm">Search</button>
+                    
                 </div>
             </form>
+            {{-- <button onclick="window.print()" class="bg-primary text-white px-3 py-1 rounded text-sm">Print</button> --}}
           </div>
-          {{-- <div class="overflow-x-auto" >
-            <table class="w-full text-sm">
-              <thead class="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Item</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Serial Number</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Brand</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Model</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Specs</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Status</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase">Action</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                @forelse ($assets as $asset)
-                <tr class="hover:bg-gray-50 transition-colors " x-data="{ open: false, dl: false }">
-                    
-                    <td class="px-6 py-4 text-gray-900">{{ $asset->asset_type }}</td>
-                    <td class="px-6 py-4 text-gray-900">{{ $asset->serial_number }}</td>
-                    <td class="px-6 py-4 text-gray-900">{{ $asset->brand }}</td>
-                    <td class="px-6 py-4 text-gray-900">{{ $asset->model }}</td>
-
-                    <td class="px-6 py-4 text-gray-900">
-                        @if ($asset->asset_type === 'system_unit')
-                            <div>{{ $asset->systemUnitSpec->processor }}</div>
-                            <div>{{ $asset->systemUnitSpec->memory . ' / ' . $asset->systemUnitSpec->storage }}</div>
-                            <div>{{ $asset->systemUnitSpec->videocard }}</div>
-                        @elseif ($asset->asset_type === 'monitor')
-                            <div>Size: {{ $asset->monitorSpec->size }}</div>
-                        @endif
-                    </td>
-
-                    <td class="px-6 py-4 text-gray-900">{{ $asset->status }}</td>
-
-                    <td class="px-6 py-4 relative">
-                        <button @click="open = !open" class="px-3 py-1 rounded-md hover:bg-gray-100">
-                            ⋮
-                        </button>
-
-                        <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute left-14 top-0 mt-0 w-32 bg-white border border-gray-200 rounded-lg shadow-lg z-100">
-                            <a href="/inventory/result/{{ $asset->id }}" 
-                                class="block px-4  text-sm hover:bg-gray-50 text-primary">
-                                View
-                            </a>
-                            <button @click="dl = true" class="block px-4  text-sm hover:bg-gray-50 text-red-500">Delete</button>
-                            <a href="" class="block px-4  text-sm hover:bg-gray-50">Edit</a>
-                            
-                        </div>
-                        <div x-show="dl" x-cloak
-                            class="fixed inset-0 flex items-center justify-center z-50">
-                            
-                            <div class="fixed inset-0 bg-black bg-opacity-50" @click="open = false"></div>
-
-                            <div class="bg-white rounded-lg shadow-lg w-96 p-6 z-50"
-                                x-transition:enter="transition ease-out duration-300"
-                                x-transition:enter-start="opacity-0 scale-90"
-                                x-transition:enter-end="opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-200"
-                                x-transition:leave-start="opacity-100 scale-100"
-                                x-transition:leave-end="opacity-0 scale-90">
-
-                                <h2 class="text-lg font-semibold text-gray-800 mb-4">Delete Confirmation {{ $asset->id }}</h2>
-                                <p class="text-gray-600 mb-6">Are you sure? All Applicant applied to this job will be deleted</p>
-
-                                <div class="flex justify-end gap-3">
-                                    <button @click="dl = false" 
-                                            class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-100">
-                                        Cancel
-                                    </button>
-
-                                    <form method="POST" action="/asset/delete/{{ $asset->id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" 
-                                                class="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                        No Data Found
-                    </td>
-                </tr>
-                @endforelse
-                </tbody>
-            </table>
-            <div class="p-4">
-                {{ $assets->links() }}
-            </div>
-          </div> --}}
-
-          {{--  --}}
+  
           
 
-          <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
-              <table class="w-full text-sm text-left rtl:text-right text-body">
+          <div id="print-area" class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+              <table id="qr-print-area" class="w-full text-sm text-left rtl:text-right text-body">
                   <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
                       <tr>
                           <th scope="col" class="px-6 py-3 font-medium">Asset</th>
@@ -194,7 +106,7 @@
                           <th scope="col" class="px-6 py-3 font-medium">Model</th>
                           <th scope="col" class="px-6 py-3 font-medium">Specs</th>
                           <th scope="col" class="px-6 py-3 font-medium">Status</th>
-                          <th scope="col" class="px-6 py-3 font-medium">Action</th>
+                          <th scope="col" class="px-6 py-3 font-medium no-print">Action</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -205,16 +117,16 @@
                         <td class="px-6 py-4">{{ $asset->brand }}</td>
                         <td class="px-6 py-4">{{ $asset->model }}</td>
                         <td class="px-6 py-4 text-xs">
-                            @if ($asset->asset_type === 'system_unit' || $asset->asset_type === 'laptop')
-                              <div>{{ $asset->systemUnitSpec->processor }}</div>
-                              <div>{{ $asset->systemUnitSpec->memory . ' / ' . $asset->systemUnitSpec->storage }}</div>
-                              <div>{{ $asset->systemUnitSpec->videocard }}</div>
+                            @if ($asset->asset_type === 'system_unit' || $asset->asset_type === 'laptop') 
+                              {{ $asset->systemUnitSpec->processor }} |
+                              {{ $asset->systemUnitSpec->memory . ' | ' . $asset->systemUnitSpec->storage }} |
+                              {{ $asset->systemUnitSpec->videocard }}
                             @elseif ($asset->asset_type === 'monitor')
                                 <div>Size: {{ $asset->monitorSpec->size }}</div>
                             @endif
                         </td>
                         <td class="px-6 py-4">{{ $asset->status }}</td>
-                        <td class="px-6 py-4 relative">
+                        <td class="px-6 py-4 relative no-print">
                           <button @click="open = !open" class="px-3 py-1 rounded-md hover:bg-gray-100">
                               ⋮
                           </button>
@@ -270,7 +182,7 @@
                     @endforelse
                   </tbody>
                 </table>
-                <div class="p-4">
+                <div class="p-4 no-print">
                   {{ $assets->links() }}
               </div>
             </div>
@@ -319,4 +231,56 @@
         </div>
       </section>
     
+
+<style>
+  @media print {
+
+      body * {
+          visibility: hidden;
+          font-size: 10px !important;
+      }
+
+      #print-area,
+      #print-area * {
+          visibility: visible;
+      }
+
+      #print-area {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+      }
+
+      .no-print {
+          display: none !important;
+      }
+
+      table {
+          border-collapse: collapse;
+      }
+
+      th, td {
+          
+          border: 1px solid #000;
+          padding: 3px 4px !important;   
+          line-height: 1.1 !important;   
+          vertical-align: top !important;
+      }
+
+      tr {
+          height: auto !important;
+      }
+
+      td br {
+          line-height: 1 !important;
+      }
+
+      th {
+          background: #f3f3f3 !important;
+          color: #000 !important;
+      }
+  }
+</style>
+      
 </x-layouts.its_>

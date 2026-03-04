@@ -6,7 +6,7 @@
         </div>
 
         <!-- Search and Filter Bar -->
-        <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
+        {{-- <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
           <div class="flex flex-col md:flex-row gap-4">
             <div class="flex-1">
               <div class="relative">
@@ -52,7 +52,7 @@
               </select>
             </div>
           </div>
-        </div>
+        </div> --}}
 
         <!-- KPI Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">

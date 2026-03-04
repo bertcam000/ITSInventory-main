@@ -46,7 +46,7 @@ class AssetController extends Controller
         ];  
 
 
-        $assets = $query->latest()->paginate(5)->withQueryString();
+        $assets = $query->latest()->paginate($request->pages)->withQueryString();
 
 
         return view('pages.inventory.index', compact('assets', 'statusCards'));
