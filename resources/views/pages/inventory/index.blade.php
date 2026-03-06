@@ -67,7 +67,7 @@
               <button onclick="window.print()" class="bg-primary text-white px-3 py-1 rounded text-sm">Print</button>
             </div>
             <form action="/inventory" method="GET" class="flex justify-between items-center w-full">
-              <select name="pages" id="rowsPerPage" class="text-sm border border-gray-300 rounded px-3 w-36 py-1 mx-3 w-[60px]">
+              <select onchange="this.form.submit()" name="pages" id="rowsPerPage" class="text-sm border border-gray-300 rounded px-3 w-36 py-1 mx-3 w-[60px]">
                 <option value="10" {{ request('pages') == '10' ? 'selected' : '' }} selected>10</option>
                 <option value="25" {{ request('pages') == '25' ? 'selected' : '' }}>25</option>
                 <option value="50" {{ request('pages') == '50' ? 'selected' : '' }}>50</option>
@@ -91,12 +91,11 @@
                     
                 </div>
             </form>
-            {{-- <button onclick="window.print()" class="bg-primary text-white px-3 py-1 rounded text-sm">Print</button> --}}
           </div>
   
           
 
-          <div id="print-area" class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+          <div id="print-area" class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base ">
               <table id="qr-print-area" class="w-full text-sm text-left rtl:text-right text-body">
                   <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
                       <tr>
@@ -182,16 +181,17 @@
                     @endforelse
                   </tbody>
                 </table>
+                <div class="text-end px-5 py-2 hidden ">{{ now()->format('M d, Y') }}</div>
                 <div class="p-4 no-print">
                   {{ $assets->links() }}
-              </div>
+                </div>
             </div>
             {{--  --}}
           
         </div>
 
         <!-- Asset movement logs -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        {{-- <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div class="p-4 border-b border-gray-200 flex items-center justify-between">
             <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Asset Movement Logs</h2>
             <span class="text-xs text-gray-500">Recently issued, returned, and transferred items</span>
@@ -224,7 +224,7 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div> --}}
         {{-- MODAl --}}
         <div x-show="addAssetModalOpen" x-cloak class="px-2 md:px-0 transition-all duration-300 flex h-screen w-full bg-black/20 fixed -top-6 left-0 z-50  justify-center items-center">
             <livewire:test.test/>

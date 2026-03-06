@@ -45,7 +45,9 @@ class PcAssignmentController extends Controller
             $query->where('department_id', $request->department);
         }
 
-        $PcAssigned = $query->paginate(10)->withQueryString();
+        $request->pages ? '' : 10;
+
+        $PcAssigned = $query->paginate($pages = $request->pages ?: 10)->withQueryString();
 
         $campuses = Campus::orderBy('name')->get();
 

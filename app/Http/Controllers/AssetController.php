@@ -46,14 +46,14 @@ class AssetController extends Controller
         ];  
 
 
-        $assets = $query->latest()->paginate($request->pages)->withQueryString();
+        $assets = $query->latest()->paginate($pages = $request->pages ?: 10)->withQueryString();
 
 
         return view('pages.inventory.index', compact('assets', 'statusCards'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource.tititititititititiititti
      */
     public function create()
     {
