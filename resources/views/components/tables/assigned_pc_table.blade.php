@@ -64,14 +64,63 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                 @forelse ($pcs as $pc)
-                <tr class="hover:bg-gray-50 transition-colors">
+                <tr class="hover:bg-gray-50 transition-colors" x-data="{ open: false, dl: false }">
                     <td class="px-6 py-4 text-gray-900">{{ $pc->asset_id }}</td>
                     <td class="px-6 py-4 text-gray-900 ">{{ $pc->systemUnit->serial_number }}</td>
                     <td class="px-6 py-4 text-gray-900 ">{{ $pc->monitor->serial_number }}</td>
                     <td class="px-6 py-4 text-gray-900">{{ $pc->assigned_to }}</td>
                     <td class="px-6 py-4 text-gray-900">{{ $pc->department->name }}</td>
                     <td class="px-6 py-4 text-gray-900 ">{{ $pc->department->campus->name }}</td>
-                    <td class="px-6 py-4 no-print"><button class="text-primary hover:text-primaryDark text-xs font-medium ">View →</button></td>
+                    {{-- <td class="px-6 py-4 no-print"><button class="text-primary hover:text-primaryDark text-xs font-medium ">View →</button></td> --}}
+                    <td class="px-6 py-4 relative no-print">
+                        <button @click="open = !open" class="px-3 py-1 rounded-md hover:bg-gray-100">
+                            ⋮
+                        </button>
+
+                        <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute right-14 top-3 py-2 px-3 flex justify-center items-center gap-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                            <button @click="dl = true" class="text-red-500 hover:bg-gray-200 hover:rounded-lg px-2">Delete</button>
+                            <a  href="/assigned-pc/{{ $pc->id }}" class=" hover:bg-gray-200 hover:rounded-lg px-2">Edit</a>
+                            <a href="/assigned-pc/{{ $pc->id }}" class="text-green-500 hover:rounded-lg hover:bg-gray-200 px-2">View</a>
+                        </div>
+
+                        <div x-show="dl" x-cloak
+                            class="fixed inset-0 flex items-center justify-center z-50">
+                            
+                            <div class="fixed inset-0 bg-black bg-opacity-50" @click="dl = false"></div>
+
+                            <div class="bg-white rounded-lg shadow-lg w-96 p-6 z-50"
+                                x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 scale-90"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-200"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-90">
+
+                                <h2 class="text-lg font-semibold text-gray-800 mb-4">Delete Confirmation</h2>
+                                <p class="text-gray-600 mb-6">Are you sure? This asset will permanently deleted</p>
+
+                                <div class="flex justify-end gap-3">
+                                    <button @click="dl = false" 
+                                            class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-100">
+                                        Cancel
+                                    </button>
+
+                                    <form method="POST" action="{{ route('assigned-pc.destroy', $pc->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="px-4 py-2 rounded bg-red-500 hover:bg-red-600 text-white"
+                                        >
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </td>
                 </tr>
                 @empty
                     <td colspan="7" class="px-6 py-4 text-center text-gray-500">No Data Found</td>

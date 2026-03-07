@@ -83,7 +83,7 @@ class AssetController extends Controller
             ])
             ->first();
 
-        return view('pages.inventory.result', compact('asset', 'assignment'));
+        return view('pages.inventory.show', compact('asset', 'assignment'));
     }
 
     /**

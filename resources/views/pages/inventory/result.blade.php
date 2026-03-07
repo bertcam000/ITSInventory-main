@@ -138,7 +138,7 @@
             <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="rounded-xl border border-gray-100 bg-gray-50 p-4">
                 <p class="text-xs font-medium text-gray-500">Item Type</p>
-                <p class="mt-1 text-sm font-semibold text-gray-900">{{ $type }}</p>
+                <p class="mt-1 text-sm font-semibold text-gray-900">{{ Str::title(str_replace('_', ' ', $type)) }}</p>
               </div>
 
               <div class="rounded-xl border border-gray-100 bg-gray-50 p-4">
@@ -332,9 +332,14 @@
                     <p>{{ $monSerial }}</p>
                   </div>
                 </div>
+                @if (!$assignment)
+                  <div>No QR Code Generated - Not Assigned</div>
+                @else
                 <div>
                   {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->margin(0)->generate($qrUrl) !!}
                 </div>
+                @endif
+                
               </div>
             </div>
 

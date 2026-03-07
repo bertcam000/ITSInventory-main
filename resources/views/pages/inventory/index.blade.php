@@ -62,7 +62,6 @@
         <!-- Current asset list -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div class="p-4 border-b border-gray-200 flex items-center justify-between">
-            {{-- <h2 class="text-sm font-semibold text-gray-900 uppercase tracking-wide">Current Asset Total {{ $statusCards['total'] }}</h2> --}}
             <div>
               <button onclick="window.print()" class="bg-primary text-white px-3 py-1 rounded text-sm">Print</button>
             </div>
@@ -98,6 +97,7 @@
           <div id="print-area" class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base ">
               <table id="qr-print-area" class="w-full text-sm text-left rtl:text-right text-body">
                   <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                    <div class="text-end px-5 py-2  print-date">{{ now()->format('M d, Y') }}</div>
                       <tr>
                           <th scope="col" class="px-6 py-3 font-medium">Asset</th>
                           <th scope="col" class="px-6 py-3 font-medium">Serial Number</th>
@@ -181,7 +181,7 @@
                     @endforelse
                   </tbody>
                 </table>
-                <div class="text-end px-5 py-2 hidden ">{{ now()->format('M d, Y') }}</div>
+                
                 <div class="p-4 no-print">
                   {{ $assets->links() }}
                 </div>
@@ -233,11 +233,19 @@
     
 
 <style>
+  .print-date {
+      display: none;
+  }
   @media print {
 
       body * {
           visibility: hidden;
           font-size: 10px !important;
+      }
+
+      .print-date {
+          display: block;
+          font-size: 12px;
       }
 
       #print-area,

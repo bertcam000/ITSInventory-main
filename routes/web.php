@@ -43,7 +43,9 @@ Route::middleware('auth')->group(function() {
 
     // Assigned PC
     Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
-    Route::get('/assigned-pc/{department}', [PcAssignmentController::class, 'show']);
+    Route::get('/assigned-pc/{pcAssignment}', [PcAssignmentController::class, 'show']);
+    Route::delete('/assigned-pc/{pcAssignment}', [PcAssignmentController::class, 'destroy'])
+    ->name('assigned-pc.destroy');
 
     Route::get('/department', [DepartmentController::class, 'index']);
     Route::get('/department/result/{department}', [DepartmentController::class, 'show']);

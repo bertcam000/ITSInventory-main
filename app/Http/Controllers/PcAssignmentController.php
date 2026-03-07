@@ -78,10 +78,11 @@ class PcAssignmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Department $department)
+    public function show(PcAssignment $pcAssignment)
     {
-        $dept = PcAssignment::where('department_id', $department->id)->get();
-        dd($dept);
+        $pcAssignment->load(['systemUnit.systemUnitSpec', 'monitor.monitorSpec', 'department.campus']);
+        
+        return view('pages.assigned_pc.show', compact('pcAssignment'));
     }
 
     /**
@@ -103,8 +104,11 @@ class PcAssignmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(PcAssignment $pcAssignment)
     {
-        //
+        $pcAssignment->delete();
+
+        return redirect('/assigned-pc')
+            ->with('success', 'Asset deleted successfully.');
     }
 }
