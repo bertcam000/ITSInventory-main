@@ -14,9 +14,9 @@ Route::view('/', 'home.home');
 
 Route::view('/login', 'home.login')->name('login');;
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -44,8 +44,9 @@ Route::middleware('auth')->group(function() {
     // Assigned PC
     Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
     Route::get('/assigned-pc/{pcAssignment}', [PcAssignmentController::class, 'show']);
-    Route::delete('/assigned-pc/{pcAssignment}', [PcAssignmentController::class, 'destroy'])
-    ->name('assigned-pc.destroy');
+    Route::delete('/assigned-pc/{pcAssignment}', [PcAssignmentController::class, 'destroy'])->name('assigned-pc.destroy');
+    Route::get('/assigned-pc/{pcAssignment}/edit', [PcAssignmentController::class, 'edit'])->name('pc-assignment.edit');
+    Route::put('/assigned-pc/{pcAssignment}', [PcAssignmentController::class, 'update'])->name('pc-assignment.update');
 
     Route::get('/department', [DepartmentController::class, 'index']);
     Route::get('/department/result/{department}', [DepartmentController::class, 'show']);

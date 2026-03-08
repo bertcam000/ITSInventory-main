@@ -35,6 +35,11 @@ class Asset extends Model
         return PcAssignment::query()
             ->where('system_unit_id', $this->id)
             ->orWhere('monitor_id', $this->id)
-            ->latest('id'); // or latest('created_at') if you have timestamps
+            ->latest('id'); 
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

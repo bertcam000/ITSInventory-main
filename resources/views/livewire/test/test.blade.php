@@ -60,6 +60,7 @@ new class extends Component {
             'serial_number' => $this->serial_number,
             'brand' => $this->brand,
             'model' => $this->model,
+            'created_by' => auth()->id(),
         ]);
 
         if ($this->asset_type === 'pc' || $this->asset_type === 'laptop') {

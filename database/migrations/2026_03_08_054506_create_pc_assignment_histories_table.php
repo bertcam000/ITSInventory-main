@@ -1,9 +1,5 @@
 <?php
 
-use App\Models\Department;
-use App\Models\Monitor;
-use App\Models\Pc;
-use App\Models\SystemUnit;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pc_assignments', function (Blueprint $table) {
+        Schema::create('pc_assignment_histories', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('pc_assignment_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+
             $table->string('asset_id')->index();
+
             $table->foreignId('department_id')
                 ->constrained()
                 ->cascadeOnDelete();
@@ -30,14 +33,17 @@ return new class extends Migration
                 ->constrained('assets')
                 ->cascadeOnDelete();
 
-            
             $table->string('assigned_to');
-            $table->string('status')->default('assigned');
 
-            $table->foreignId('created_by')
+            $table->timestamp('assigned_at')->useCurrent();
+            $table->timestamp('unassigned_at')->nullable();
+
+            $table->foreignId('updated_by')
                 ->constrained('users')
                 ->cascadeOnDelete();
-            
+
+            $table->string('action')->nullable();
+
             $table->timestamps();
         });
     }
@@ -47,6 +53,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pc_assignments');
+        Schema::dropIfExists('pc_assignment_histories');
     }
 };

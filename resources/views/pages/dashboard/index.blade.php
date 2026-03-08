@@ -5,55 +5,6 @@
           <h1 class="text-2xl md:text-3xl font-bold text-gray-900 capitalize">Dashboard</h1>
         </div>
 
-        <!-- Search and Filter Bar -->
-        {{-- <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
-          <div class="flex flex-col md:flex-row gap-4">
-            <div class="flex-1">
-              <div class="relative">
-                <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-                <input 
-                  type="text" 
-                  x-model="searchQuery"
-                  placeholder="Search assets, tickets, users..." 
-                  class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2">
-              <select x-model="selectedCampus" class="border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-w-0 flex-1 sm:flex-initial sm:min-w-[140px]">
-                <option value="all">All Campuses</option>
-                <option value="main">Main Campus</option>
-                <option value="annex">Annex Campus</option>
-                <option value="mv">MV Campus</option>
-                <option value="heavenly">Heavenly Campus</option>
-                <option value="criminology">Criminology Campus</option>
-                <option value="bulacan">Bulacan Campus</option>
-              </select>
-              <select x-model="selectedDepartment" class="border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-w-0 flex-1 sm:flex-initial sm:min-w-[140px]">
-                <option value="all">All Departments</option>
-                <option value="its">ITS</option>
-                <option value="account">Account</option>
-                <option value="cashier">Cashier</option>
-                <option value="registrar">Registrar</option>
-                <option value="btac">BTAC</option>
-                <option value="bookstore">Bookstore</option>
-                <option value="it">IT Department</option>
-                <option value="admin">Administration</option>
-                <option value="academic">Academic</option>
-                <option value="finance">Finance</option>
-              </select>
-              <select x-model="selectedStatus" class="border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent min-w-0 flex-1 sm:flex-initial sm:min-w-[120px]">
-                <option value="all">All Status</option>
-                <option value="active">Active</option>
-                <option value="maintenance">Maintenance</option>
-                <option value="inactive">Inactive</option>
-              </select>
-            </div>
-          </div>
-        </div> --}}
-
         <!-- KPI Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           <div class="stat-card bg-white rounded-xl shadow-sm hover:shadow-md transition-all p-6 border border-gray-200">

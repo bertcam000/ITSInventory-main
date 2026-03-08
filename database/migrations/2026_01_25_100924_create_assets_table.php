@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('status')->default('available');
             $table->text('qrcode')->nullable();
             $table->text('remarks')->nullable();
+            $table->foreignId('created_by')
+                ->constrained('users')
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class AssetController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Asset::query()->with(['systemUnitSpec', 'monitorSpec']);
+        $query = Asset::query()->with(['systemUnitSpec', 'monitorSpec', 'creator']);
 
         if ($request->filled('asset_type')) {
             $query->where('asset_type', $request->asset_type);

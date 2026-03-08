@@ -5,6 +5,7 @@ use App\Models\Department;
 use App\Models\Asset;
 use App\Models\Campus;
 use App\Models\PcAssignment;
+use App\Models\PcAssignmentHistory;
 
 new class extends Component {
 
@@ -29,7 +30,6 @@ new class extends Component {
         'systemUnit' => 'required|exists:assets,id',
         'monitor' => 'required|exists:assets,id',
         'assignedTo' => 'required|string|max:255',
-        // 'status' => 'required|in:assigned,unassigned',
     ];
 
     /* =======================
@@ -39,17 +39,32 @@ new class extends Component {
     {
         $this->validate();
 
-        PcAssignment::create([
+        $assignment = PcAssignment::create([
             'asset_id' => $this->asset_id,
             'department_id' => $this->department,
             'system_unit_id' => $this->systemUnit,
             'monitor_id' => $this->monitor,
             'assigned_to' => $this->assignedTo,
+            'created_by' => auth()->id(),
             
         ]);
 
         Asset::whereIn('id', [$this->systemUnit, $this->monitor])
             ->update(['status' => 'assigned']);
+
+
+        PcAssignmentHistory::create([
+            'pc_assignment_id' => $assignment->id,
+            'asset_id' => $this->asset_id,
+            'system_unit_id' => $this->systemUnit,
+            'monitor_id' => $this->monitor,
+            'department_id' => $this->department,
+            'assigned_to' => $this->assignedTo,
+            'assigned_at' => now(),
+            'updated_by' => auth()->id(),
+            'action' => 'assigned',
+        ]);
+            
 
         return redirect('assigned-pc')
             ->with('success', 'Unit Assigned Successfully');

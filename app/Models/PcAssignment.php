@@ -23,4 +23,14 @@ class PcAssignment extends Model
     public function monitor(){
         return $this->belongsTo(Asset::class, 'monitor_id');
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function histories()
+    {
+        return $this->hasMany(PcAssignmentHistory::class, 'pc_assignment_id');
+    }
 }

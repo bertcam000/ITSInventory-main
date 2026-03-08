@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Asset Quick Info</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-900">
+<x-layouts.solo-layout>
 
     @php
         $assetTitle = trim(($asset->brand ?? '').' '.($asset->model ?? '')) ?: 'Asset';
@@ -216,8 +208,8 @@
           <!-- Footer Actions -->
           <div class="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-between">
             @if ($assignment)
-                <a href="#" class="inline-flex items-center justify-center rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800">
-                    View Full Assignment {{ $assignment->id }}
+                <a href="/assigned-pc/{{ $assignment->id }}" class="inline-flex items-center justify-center rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-800">
+                    View Full Assignment
                 </a>
             @endif
           </div>
@@ -225,5 +217,4 @@
       </div>
     </main>
   </div>
-</body>
-</html>
+</x-layouts.solo-layout>

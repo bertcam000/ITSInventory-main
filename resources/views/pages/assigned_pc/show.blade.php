@@ -269,6 +269,45 @@
 
         </aside>
 
+        <div class="lg:col-span-12 bg-white rounded-xl shadow-sm border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-900">Recent Activity</h3>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Asset Tag</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Department</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">System Unit</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Monitor</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Assigned To</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Assigned At</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Action</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Updated At</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                @forelse ($pcAssignment->histories as $history)
+                  <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-gray-900">{{ $history->asset_id }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->department->name }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->systemUnit->serial_number }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->monitor->serial_number }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->assigned_to }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->assigned_at->diffForHumans() }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->action }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->updated_at->diffForHumans() }}</td>
+                  </tr>
+                @empty
+                  
+                @endforelse
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
 

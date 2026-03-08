@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Asset</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-@if (session('success'))
-    <x-notification :message="session('success')" type="success" />
-@endif
-<body class="bg-slate-50 text-slate-900">
+<x-layouts.solo-layout>
+  @if (session('success'))
+      <x-notification :message="session('success')" type="success" />
+  @endif
   <div class="min-h-screen">
     <!-- Top Bar -->
     <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
@@ -204,5 +195,4 @@
       </form>
     </main>
   </div>
-</body>
-</html>
+</x-layouts.solo-layout>
