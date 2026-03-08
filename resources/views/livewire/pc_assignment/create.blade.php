@@ -12,7 +12,7 @@ new class extends Component {
     /* =======================
      |  FORM PROPERTIES
      ======================= */
-    public $asset_id = null;
+    public $asset_tag = null;
     public $campus = null;
     public $department = null;
     public $systemUnit = null;
@@ -24,7 +24,7 @@ new class extends Component {
      |  VALIDATION
      ======================= */
     protected $rules = [
-        'asset_id' => 'required|string|unique:pc_assignments,asset_id',
+        'asset_tag' => 'required|string|unique:pc_assignments,asset_tag',
         'campus' => 'required|exists:campuses,id',
         'department' => 'required|exists:departments,id',
         'systemUnit' => 'required|exists:assets,id',
@@ -40,7 +40,7 @@ new class extends Component {
         $this->validate();
 
         $assignment = PcAssignment::create([
-            'asset_id' => $this->asset_id,
+            'asset_tag' => $this->asset_tag,
             'department_id' => $this->department,
             'system_unit_id' => $this->systemUnit,
             'monitor_id' => $this->monitor,
@@ -55,7 +55,7 @@ new class extends Component {
 
         PcAssignmentHistory::create([
             'pc_assignment_id' => $assignment->id,
-            'asset_id' => $this->asset_id,
+            'asset_tag' => $this->asset_tag,
             'system_unit_id' => $this->systemUnit,
             'monitor_id' => $this->monitor,
             'department_id' => $this->department,
@@ -133,10 +133,10 @@ new class extends Component {
         <div>
             <label class="block text-sm text-gray-600 mb-1">Asset ID</label>
             <input type="text"
-                   wire:model="asset_id"
+                   wire:model="asset_tag"
                    class="uppercase-input w-full border rounded-lg px-4 py-2"
                    placeholder="e.g. SPS-001">
-            <x-input-error :messages="$errors->get('asset_id')" class="mt-2" />
+            <x-input-error :messages="$errors->get('asset_tag')" class="mt-2" />
         </div>
         
         <!-- CAMPUS -->

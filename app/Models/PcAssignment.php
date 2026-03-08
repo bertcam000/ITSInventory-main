@@ -33,4 +33,9 @@ class PcAssignment extends Model
     {
         return $this->hasMany(PcAssignmentHistory::class, 'pc_assignment_id');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'asset_tag';
+    }
 }

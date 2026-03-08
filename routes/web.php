@@ -1,14 +1,15 @@
 <?php
 
+use App\Models\Campus;
 use App\Models\PcAssignment;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\APController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\CampusController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PcAssignmentController;
-use App\Http\Controllers\CampusController;
-use App\Http\Controllers\DashboardController;
-use App\Models\Campus;
 
 Route::view('/', 'home.home');
 
@@ -52,6 +53,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/department/result/{department}', [DepartmentController::class, 'show']);
     Route::get('/campus', [CampusController::class, 'index']);
 
+    // AP ASSIGNMENT
+    Route::get('/assigned-ap', [APController::class, 'index']);
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

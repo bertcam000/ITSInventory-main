@@ -20,4 +20,9 @@ class Department extends Model
     public function campus(){
         return $this->belongsTo(Campus::class);
     }
+
+    public function accessPoints()
+    {
+        return $this->hasMany(AccessPointAssignment::class);
+    }
 }

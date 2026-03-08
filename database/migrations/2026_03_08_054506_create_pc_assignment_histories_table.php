@@ -19,7 +19,7 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
 
-            $table->string('asset_id')->index();
+            $table->string('asset_tag')->index();
 
             $table->foreignId('department_id')
                 ->constrained()

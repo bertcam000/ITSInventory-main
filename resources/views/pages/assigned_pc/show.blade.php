@@ -227,7 +227,7 @@
                 </div>
                 
                 <div class="">
-                  {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->margin(0)->generate(url('/assigned-pc/'.$pcAssignment->id)) !!}
+                  {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(180)->margin(0)->generate(url('/assigned-pc/'.$pcAssignment->asset_tag)) !!}
                 </div>
                 
             </div>
@@ -290,7 +290,7 @@
               <tbody class="divide-y divide-gray-200">
                 @forelse ($pcAssignment->histories as $history)
                   <tr class="hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4 font-medium text-gray-900">{{ $history->asset_id }}</td>
+                    <td class="px-6 py-4 font-medium text-gray-900">{{ $history->asset_tag }}</td>
                     <td class="px-6 py-4 text-gray-600">{{ $history->department->name }}</td>
                     <td class="px-6 py-4 text-gray-600">{{ $history->systemUnit->serial_number }}</td>
                     <td class="px-6 py-4 text-gray-600">{{ $history->monitor->serial_number }}</td>

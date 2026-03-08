@@ -48,14 +48,14 @@
       <span x-show="sidebarOpen" class="font-bold text-gray-900 text-lg">ITS Inventory</span>
     </div>
     <!-- Search Bar -->
-    <div class="px-3 py-4 flex-shrink-0" x-show="sidebarOpen">
+    {{-- <div class="px-3 py-4 flex-shrink-0" x-show="sidebarOpen">
       <div class="relative">
         <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
         <input type="text" x-model="searchQuery" placeholder="Search..." class="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"/>
       </div>
-    </div>
+    </div> --}}
     <!-- Menu -->
     <nav class="flex-1 min-h-0 px-3 py-6 space-y-1 text-sm overflow-y-auto overflow-x-hidden">
       <!-- DASHBOARD -->
@@ -82,6 +82,13 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
           </svg></span>
           <button  x-show="sidebarOpen" class="ml-3">PC Assignment</button>
+        </a>
+        <a href="/assigned-ap" wire:navigate @click="active='ap-assignment'; if (window.innerWidth < 768) sidebarOpen = false" class="sidebar-btn w-full {{ request()->is('assigned-ap') ? 'bg-primary/10 text-primary border-l-4 border-primary' : '' }}">
+          <span class="sidebar-icon-wrap"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
+            </svg>
+          </span>
+          <button  x-show="sidebarOpen" class="ml-3">AP Assignment</button>
         </a>
         <!-- Department Dropdown -->
         <div class="relative">
@@ -180,9 +187,17 @@
   <!--  MAIN -->
   <div class="flex-1 flex flex-col min-w-0 " :class="sidebarOpen ? 'md:ml-64' : 'md:ml-20'">
 
+    
+    <div class="absolute right-4 top-4 md:hidden">
+      <button @click="sidebarOpen = !sidebarOpen" class="flex-shrink-0 p-2 -ml-2 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+        <svg class="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
     <!-- CONTENT -->
     <main x-cloak class="main-content-padding space-y-6 bg-gray-50 flex-1 min-w-0 overflow-y-auto" @scroll.passive="topbarScrolled = $event.target.scrollTop > 8">
-
+      
       {{ $slot }}
       
     </main>

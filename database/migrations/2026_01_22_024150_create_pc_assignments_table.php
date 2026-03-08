@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('pc_assignments', function (Blueprint $table) {
             $table->id();
-            $table->string('asset_id')->index();
+            $table->string('asset_tag')->index();
             $table->foreignId('department_id')
                 ->constrained()
                 ->cascadeOnDelete();
