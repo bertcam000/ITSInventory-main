@@ -50,11 +50,11 @@ new class extends Component {
                 id="name"
                 name="name"
                 placeholder="e.g. IT Department"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('name') border-red-500 @enderror"
+                class="uppercase-input w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('name') border-red-500 @enderror"
             >
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
-        <select wire:model="campus" class="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('campus') border-red-500 @enderror">
+        <select wire:model="campus" class="uppercase-input w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 @error('campus') border-red-500 @enderror">
             <option value="">Select Campus</option>
             @forelse ($campuses as $campus)
                 <option value="{{ $campus->id }}">{{ $campus->name }}</option>

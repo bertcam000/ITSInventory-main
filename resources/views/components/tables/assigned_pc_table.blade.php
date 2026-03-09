@@ -79,7 +79,7 @@
 
                         <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute right-14 top-3 py-2 px-3 flex justify-center items-center gap-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                             <button @click="dl = true" class="text-red-500 hover:bg-gray-200 hover:rounded-lg px-2">Delete</button>
-                            <a  href="/assigned-pc/{{ $pc->id }}/edit" class=" hover:bg-gray-200 hover:rounded-lg px-2">Edit</a>
+                            <a  href="/assigned-pc/{{ $pc->asset_tag }}/edit" class=" hover:bg-gray-200 hover:rounded-lg px-2">Edit</a>
                             <a href="/assigned-pc/{{ $pc->asset_tag }}" class="text-green-500 hover:rounded-lg hover:bg-gray-200 px-2">View</a>
                         </div>
 

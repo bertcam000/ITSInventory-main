@@ -39,7 +39,7 @@ new class extends Component {
                 id="name"
                 name="name"
                 placeholder="e.g. IT Department"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('name') border-red-500 @enderror"
+                class="uppercase-input w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('name') border-red-500 @enderror"
             >
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
@@ -51,7 +51,7 @@ new class extends Component {
                 id="location"
                 name="location"
                 placeholder="e.g. IT Department"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('location') border-red-500 @enderror"
+                class="uppercase-input w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:ring focus:ring-gray-200 focus:outline-none @error('location') border-red-500 @enderror"
             >
             <x-input-error :messages="$errors->get('location')" class="mt-2" />
         </div>

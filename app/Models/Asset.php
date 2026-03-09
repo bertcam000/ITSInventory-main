@@ -47,4 +47,9 @@ class Asset extends Model
     {
         return $this->hasOne(AccessPointAssignment::class);
     }
+
+    public function setSerialNumberAttribute($value)
+    {
+        $this->attributes['serial_number'] = strtoupper($value);
+    }
 }

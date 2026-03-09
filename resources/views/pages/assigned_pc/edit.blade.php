@@ -21,7 +21,7 @@
             <!-- Asset ID -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Asset ID</label>
-                <input type="text" name="asset_id" value="{{ $assignment->asset_id }}" class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                <input type="text" name="asset_id" value="{{ $assignment->asset_tag }}" class="w-full border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
             </div>
 
             <!-- Department -->
