@@ -14,4 +14,8 @@ class Campus extends Model
     public function department(){
         return $this->hasMany(Department::class);
     }
+
+    public function location(){
+        return $this->hasMany(Location::class);
+    }
 }

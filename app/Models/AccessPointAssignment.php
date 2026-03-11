@@ -20,4 +20,8 @@ class AccessPointAssignment extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
 }

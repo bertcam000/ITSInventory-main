@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    //
+
+    protected $guarded = ['id'];
+    
+    public function campus()
+    {
+        return $this->belongsTo(Campus::class);
+    }
+
+    public function AccessPointAssignment(){
+        return $this->hasMany(AccessPointAssignment::class);
+    }
+    
 }

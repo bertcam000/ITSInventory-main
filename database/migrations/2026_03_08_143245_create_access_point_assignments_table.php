@@ -17,8 +17,8 @@ return new class extends Migration
                 ->constrained('assets')
                 ->cascadeOnDelete();
 
-            $table->foreignId('department_id')
-                ->constrained('departments')
+            $table->foreignId('location_id')
+                ->constrained('locations')
                 ->cascadeOnDelete();
             $table->timestamps();
         });

@@ -10,6 +10,7 @@ use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PcAssignmentController;
+use App\Http\Controllers\LocationController;
 
 Route::view('/', 'home.home');
 
@@ -55,6 +56,8 @@ Route::middleware('auth')->group(function() {
 
     // AP ASSIGNMENT
     Route::get('/assigned-ap', [APController::class, 'index']);
+    // AP LOCATION
+    Route::get('/APlocation',[LocationController::class, 'index']);
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
