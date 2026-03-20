@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class AssetController extends Controller
 {
@@ -181,6 +182,7 @@ class AssetController extends Controller
             $asset->monitorSpec->delete();
         }
 
+        Gate::authorize('delete', $asset);
         $asset->delete();
 
         return redirect('/inventory')

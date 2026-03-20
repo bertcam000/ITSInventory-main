@@ -9,9 +9,6 @@ use App\Models\PcAssignmentHistory;
 
 new class extends Component {
 
-    /* =======================
-     |  FORM PROPERTIES
-     ======================= */
     public $asset_tag = null;
     public $campus = null;
     public $department = null;
@@ -20,9 +17,7 @@ new class extends Component {
     public $assignedTo = '';
     // public $status = null;
 
-    /* =======================
-     |  VALIDATION
-     ======================= */
+    
     protected $rules = [
         'asset_tag' => 'required|string|unique:pc_assignments,asset_tag',
         'campus' => 'required|exists:campuses,id',
@@ -32,9 +27,6 @@ new class extends Component {
         'assignedTo' => 'required|string|max:255',
     ];
 
-    /* =======================
-     |  ACTIONS
-     ======================= */
     public function submit()
     {
         $this->validate();
@@ -70,10 +62,6 @@ new class extends Component {
             ->with('success', 'Unit Assigned Successfully');
     }
 
-    /* =======================
-     |  COMPUTED PROPERTIES
-     ======================= */
-
     // All campuses
     public function getCampusesProperty()
     {
@@ -108,12 +96,8 @@ new class extends Component {
             ->get();
     }
 
-    /* =======================
-     |  HOOKS
-     ======================= */
     public function updatedCampus()
     {
-        // Reset department when campus changes
         $this->department = null;
     }
 

@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Asset;
+use App\Models\MonitorSpec;
 use Livewire\Volt\Component;
+use App\Models\SystemUnitSpec;
 
 new class extends Component {
 
@@ -54,7 +57,7 @@ new class extends Component {
     {
         $this->validate();
 
-        $asset = \App\Models\Asset::create([
+        $asset = Asset::create([
             'user_id' => Auth::user()->id,
             'asset_type' => $this->asset_type === 'pc' ? 'system_unit' : $this->asset_type,
             'serial_number' => $this->serial_number,
@@ -64,7 +67,7 @@ new class extends Component {
         ]);
 
         if ($this->asset_type === 'pc' || $this->asset_type === 'laptop') {
-            \App\Models\SystemUnitSpec::create([
+            SystemUnitSpec::create([
                 'asset_id' => $asset->id,
                 'processor' => $this->processor,
                 'memory' => $this->memory,
@@ -74,7 +77,7 @@ new class extends Component {
         }
 
         if ($this->asset_type === 'monitor') {
-            \App\Models\MonitorSpec::create([
+            MonitorSpec::create([
                 'asset_id' => $asset->id,
                 'size' => $this->size,
             ]);
@@ -82,7 +85,6 @@ new class extends Component {
 
         $this->reset();
         return redirect('/inventory')->with('success', 'Asset created successfully!');
-        // session()->flash('success', 'Asset created successfully!');
     }
     
 }; ?>
@@ -93,7 +95,6 @@ new class extends Component {
 
     <form wire:submit.prevent="save" class="space-y-4">
 
-        <!-- Asset Type -->
         <div>
             <label class="block text-sm font-medium">Asset Type</label>
             <select wire:model.live="asset_type"
@@ -103,12 +104,10 @@ new class extends Component {
                 <option value="monitor">Monitor</option>
                 <option value="laptop">Laptop</option>
                 <option value="access_point">Access Point</option>
-                {{-- <option value="keyboard">Keyboard</option> --}}
             </select>
             @error('asset_type') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Common Fields -->
         <div class="grid grid-cols-2 gap-4">
             <div class="col-span-2">
                 <label class="block text-sm font-medium">Serial Number</label>
@@ -127,7 +126,6 @@ new class extends Component {
             </div>
         </div>
 
-        <!-- PC Fields -->
         @if ($asset_type === 'pc' || $asset_type === 'laptop')
             <div class="border rounded p-4 bg-gray-50 space-y-3">
                 <h3 class="font-medium">PC Specifications</h3>
@@ -139,7 +137,6 @@ new class extends Component {
             </div>
         @endif
 
-        <!-- Monitor Fields -->
         @if ($asset_type === 'monitor')
             <div class="border rounded p-4 bg-gray-50 space-y-3">
                 <h3 class="font-medium">Monitor Specifications</h3>
@@ -148,7 +145,6 @@ new class extends Component {
             </div>
         @endif
 
-        <!-- Submit -->
         <div class="pt-4 flex justify-end  gap-3">
             <div @click="addAssetModalOpen = false" class="px-4 border rounded border-gray-300 hover:bg-gray-100 flex justify-center items-center cursor-pointer">Cancel</div>
             <button type="submit" class="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90">Save Asset</button>

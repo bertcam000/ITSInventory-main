@@ -126,7 +126,7 @@
     
 
     <div class="mobile-header md:hidden">
-    <a href="home.html" class="flex items-center gap-2 text-primary hover:text-primaryDark transition font-medium">
+    <a href="/" class="flex items-center gap-2 text-primary hover:text-primaryDark transition font-medium">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
       </svg>

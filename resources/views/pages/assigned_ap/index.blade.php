@@ -4,7 +4,7 @@
         <x-notification :message="session('success')" type="success" />
     @endif
 
-    <div x-data="{form: false, fmodal: ''}">
+    <div x-data="{form: false}">
 
         <section class="space-y-6">
 
@@ -153,7 +153,7 @@
                                     x-data="{ open: false, dl: false }">
 
                                     <td class="px-6 py-4 text-gray-900">
-                                        {{ $assignment->asset->asset_tag }}
+                                        {{ $assignment->asset_tag }}
                                     </td>
 
                                     <td class="px-6 py-4 text-gray-900">
@@ -161,11 +161,11 @@
                                     </td>
 
                                     <td class="px-6 py-4 text-gray-900">
-                                        {{ $assignment->department->name }}
+                                        {{ $assignment->department->name ?? 'NA' }}
                                     </td>
 
                                     <td class="px-6 py-4 text-gray-900">
-                                        {{ $assignment->department->campus->name }}
+                                        {{ $assignment->department->campus->name ?? 'NA' }}
                                     </td>
 
                                     <td class="px-6 py-4 relative no-print">
@@ -278,6 +278,12 @@
             </div>
 
         </section>
+
+        <div x-show="form" x-cloak class="px-2 md:px-0 transition-all duration-300 flex h-screen w-full bg-black/20 fixed top-0 left-0 z-50  justify-center items-center">
+            <div @click.away="form = false" class=" rounded-lg">
+                <livewire:ap_assignment.create/>
+            </div>
+        </div>
 
     </div>
 

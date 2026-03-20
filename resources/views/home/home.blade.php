@@ -6,6 +6,7 @@
     <title>ITS Inventory & Support Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="/img/itslogo.png" />
+    @vite('resources/css/app.css')
     <script>
       tailwind.config = {
         theme: {
@@ -166,52 +167,35 @@
 
   <body class="bg-gray-50 text-gray-800">
     <!--  NAVBAR (PUBLIC) -->
-    <nav
-      id="navbar"
-      class="fixed top-0 w-full z-50 transition-all duration-300 text-white"
-    >
-      <div
-        class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"
-      >
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300
+          text-white">
+      <div class="flex justify-around py-3 px-2 lg:grid lg:grid-cols-3 lg:py-5 lg:px-5">
+
         <!-- LOGO -->
-        <img
-          src="/img/itsnewlogo.png"
-          alt="ITS Logo"
-          class="w-14 h-14 object-contain"
-        />
-        
+        <h1 class="hidden lg:block text-2xl lg:text-center font-semibold transition-colors duration-300">
+          ITS Inventory System
+        </h1>
 
         <!-- LINKS -->
-        <ul class="hidden md:flex items-center gap-8 text-sm">
-          <li>
-            <a href="home.html" class="nav-link nav-link-active text-lg"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a href="about.html" class="nav-link text-lg">About</a>
-          </li>
-          <li>
-            <a href="team.html" class="nav-link text-lg">Team</a>
-          </li>
-        </ul>
+        <div class="flex justify-center items-center gap-8">
+          <ul class="flex items-center gap-8 text-sm">
+            <li><a href="/" class="{{ request()->is('/') ? 'border-b-2 border-green-500' : '' }} text-lg">Home</a></li>
+            <li><a href="/about" class="{{ request()->is('about') ? 'border-b-2 border-green-500' : '' }} text-lg">About</a></li>
+            <li><a href="/team" class="{{ request()->is('team') ? 'border-b-2 border-green-500' : '' }} text-lg">Team</a></li>
+          </ul>
+        </div>
 
         <!-- ACTIONS -->
-        <div class="flex items-center gap-3">
-          <input
-            id="navbar-search"
-            type="text"
-            placeholder="Search"
-            class="hidden md:block px-3 py-1.5 rounded-md text-sm bg-gray-100 text-black placeholder-gray/70 focus:outline-none transition-all duration-300"
-          />
-          <a
-            href="/login"
-            class="px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 transition-all duration-300 shadow-sm"
-          >
+        <div class="flex items-center gap-3 justify-end ">
+          
+          <a href="/login" class="px-4 py-2 rounded-md text-sm font-medium text-white
+          bg-gradient-to-r from-emerald-500 to-green-600
+          hover:from-emerald-600 hover:to-green-700
+          transition-all duration-300 shadow-sm">
             Login
           </a>
+
         </div>
-      </div>
     </nav>
 
     <!-- Mobile slide-out navigation trigger -->
@@ -270,19 +254,19 @@
       </div>
       <nav class="flex-1 px-4 py-4 space-y-2 text-sm">
         <a
-          href="home.html"
+          href="/"
           class="block px-3 py-2 rounded-lg text-gray-900 bg-gray-100 font-semibold"
         >
           Home
         </a>
         <a
-          href="about.html"
+          href="/about"
           class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100"
         >
           About
         </a>
         <a
-          href="team.html"
+          href="/team"
           class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100"
         >
           Team

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AccessPointAssignment extends Model
 {
     protected $fillable = [
+        'asset_tag',
         'asset_id',
         'department_id'
     ];

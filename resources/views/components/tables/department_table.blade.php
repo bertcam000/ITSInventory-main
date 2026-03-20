@@ -60,6 +60,11 @@
                 <button class="bg-primary text-white px-3 py-1 rounded text-sm">
                     Search
                 </button>
+                <a
+                    href="/department"
+                    class="text-black border border-gray-300 px-3 py-1 rounded text-sm">
+                    Reset
+                </a>
             </div>
         </form>
 

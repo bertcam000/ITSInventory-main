@@ -7,9 +7,10 @@ use App\Models\Campus;
 use App\Models\Department;
 use App\Models\PcAssignment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\PcAssignmentHistory;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PcAssignmentController extends Controller
 {
@@ -191,7 +192,7 @@ class PcAssignmentController extends Controller
     {
         PcAssignmentHistory::create([
             'pc_assignment_id' => $pcAssignment->id,
-            'asset_id' => $pcAssignment->asset_id,
+            'asset_tag' => $pcAssignment->asset_tag,
             'department_id' => $pcAssignment->department_id,
             'system_unit_id' => $pcAssignment->system_unit_id,
             'monitor_id' => $pcAssignment->monitor_id,
@@ -210,6 +211,7 @@ class PcAssignmentController extends Controller
             'status' => 'available'
         ]);
 
+        Gate::authorize('delete', $pcAssignment);
         $pcAssignment->delete();
 
         return redirect('/assigned-pc')

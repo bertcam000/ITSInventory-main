@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('access_point_assignments', function (Blueprint $table) {
             $table->id();
+            $table->string('asset_tag');
             $table->foreignId('asset_id')
                 ->constrained('assets')
                 ->cascadeOnDelete();
 
-            $table->foreignId('department_id')
+            $table->foreignId('department_id')->nullable()
                 ->constrained('departments')
                 ->cascadeOnDelete();
             $table->timestamps();

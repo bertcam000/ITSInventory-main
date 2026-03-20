@@ -1,14 +1,28 @@
 @props(['pcs', 'departments', 'campuses'])
 <section class="space-y-6">
-    <div>
+    {{-- <div>
         <h1 class="text-2xl md:text-3xl font-bold text-gray-900">PC Assignment</h1>
     </div>    
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <button @click="form = true" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryDark transition-colors text-sm font-medium">
         + Assign PC
         </button>
-    </div>
+    </div> --}}
     
+    <div class=" lg:flex justify-between items-center">
+          <div class="space-y-1">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Asset Management</h1>
+            <p class="text-sm text-gray-600">
+                Total Assigned PC Set
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm font-semibold">
+                    {{ count($pcs) }}
+                </span>
+            </p>
+          </div>
+          <button @click="form = true" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryDark transition-colors text-sm font-medium">
+            + Assign PC
+            </button>
+        </div>
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="p-4 border-b border-gray-200 flex items-center justify-between">
@@ -78,7 +92,7 @@
                         </button>
 
                         <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute right-14 top-3 py-2 px-3 flex justify-center items-center gap-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                            <button @click="dl = true" class="text-red-500 hover:bg-gray-200 hover:rounded-lg px-2">Delete</button>
+                                <button @click="dl = true" class="text-red-500 hover:bg-gray-200 hover:rounded-lg px-2">Delete</button>
                             <a  href="/assigned-pc/{{ $pc->asset_tag }}/edit" class=" hover:bg-gray-200 hover:rounded-lg px-2">Edit</a>
                             <a href="/assigned-pc/{{ $pc->asset_tag }}" class="text-green-500 hover:rounded-lg hover:bg-gray-200 px-2">View</a>
                         </div>
@@ -105,7 +119,7 @@
                                         Cancel
                                     </button>
 
-                                    <form method="POST" action="{{ route('assigned-pc.destroy', $pc->id) }}">
+                                    <form method="POST" action="{{ route('assigned-pc.destroy', $pc->asset_tag) }}">
                                         @csrf
                                         @method('DELETE')
 

@@ -12,8 +12,10 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PcAssignmentController;
 
 Route::view('/', 'home.home');
+Route::view('/about', 'home.about');
+Route::view('/team', 'home.team');
 
-Route::view('/login', 'home.login')->name('login');;
+Route::view('/login', 'home.login')->name('login');
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
@@ -25,13 +27,6 @@ Route::view('profile', 'profile')
 
     // 
 Route::view('/scancode', 'scan');
-Route::post('/submit', [QrCodeController::class, 'generate']);
-Route::post('/scan', [QrCodeController::class, 'scan']);
-Route::get('/show-qr', [QrCodeController::class, 'show']);
-
-Route::get('/qrcode', function () {
-    return view('qrcode');
-    })->name('qrcode');
 
 Route::middleware('auth')->group(function() {
     // Inventory
@@ -40,7 +35,6 @@ Route::middleware('auth')->group(function() {
     Route::delete('/asset/delete/{asset}', [AssetController::class, 'destroy']);
     Route::get('/asset/update/{asset}', [AssetController::class, 'edit']);
     Route::patch('/asset/update/{asset}', [AssetController::class, 'update']);
-    // Route::view('/edit', 'pages.inventory.edit');
 
     // Assigned PC
     Route::get('/assigned-pc', [PcAssignmentController::class, 'index']);
@@ -55,14 +49,14 @@ Route::middleware('auth')->group(function() {
 
     // AP ASSIGNMENT
     Route::get('/assigned-ap', [APController::class, 'index']);
+    Route::put('/assigned-ap/{pcAssignment}', [APController::class, 'update'])->name('access-point-assignments.destroy');
+
+    // Account
+    Route::view('/accounts', 'pages.account.index');
+
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::view('/testing', 'test.test');
-
-    // Route::view('/item-list', 'item-list');
-
-    // Route::post('/create', [ItemCreationController::class, 'create']);
 });
 
 require __DIR__.'/auth.php';

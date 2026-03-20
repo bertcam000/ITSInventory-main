@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Campus;
+use App\Models\Department;
 use Livewire\Volt\Component;
 
 new class extends Component {
@@ -14,7 +16,7 @@ new class extends Component {
             'campus' => 'required',
         ]);
 
-        \App\Models\Department::create([
+        Department::create([
             'name' => $this->name,
             'campus_id' => $this->campus,
         ]);
@@ -26,7 +28,7 @@ new class extends Component {
     }
 
     public function getCampus(){
-        return \App\Models\Campus::get();
+        return Campus::get();
     }
 
     public function with(){

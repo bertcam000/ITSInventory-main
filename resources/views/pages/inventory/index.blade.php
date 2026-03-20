@@ -4,7 +4,7 @@
     @endif
 
     <section class="space-y-6" x-data="{addAssetModalOpen: false}">
-        <div>
+        {{-- <div>
           <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Asset Management</h1>
         </div>
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -17,6 +17,21 @@
                 {{ $statusCards['total'] }}
             </span>
           </p>
+        </div> --}}
+
+        <div class=" lg:flex justify-between items-center">
+          <div class='space-y-1'>
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Asset Management</h1>
+            <p class="text-sm text-gray-600">
+            Total Assets 
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary text-sm font-semibold">
+                {{ $statusCards['total'] }}
+            </span>
+          </p>
+          </div>
+          <button @click="addAssetModalOpen = true" class="w-full lg:w-auto bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryDark transition-colors text-sm font-medium">
+            + Add Asset
+          </button>
         </div>
 
         <!-- Asset overview by type -->
@@ -87,7 +102,11 @@
                         <option value="assigned" {{ request('status') == 'assigned' ? 'selected' : '' }}>Assigned</option>
                     </select>
                     <button class="bg-primary text-white px-3 py-1 rounded text-sm">Search</button>
-                    
+                    <a
+                        href="/inventory"
+                        class="text-black border border-gray-300 px-3 py-1 rounded text-sm">
+                        Resets
+                    </a>
                 </div>
             </form>
           </div>
@@ -104,7 +123,7 @@
                           <th scope="col" class="px-6 py-3 font-medium">Brand</th>
                           <th scope="col" class="px-6 py-3 font-medium">Model</th>
                           <th scope="col" class="px-6 py-3 font-medium">Specs</th>
-                          <th scope="col" class="px-6 py-3 font-medium">Status</th>
+                          <th scope="col" class="px-6 py-3 font-medium text-center">Status</th>
                           <th scope="col" class="px-6 py-3 font-medium no-print">Action</th>
                       </tr>
                   </thead>
@@ -122,16 +141,20 @@
                               {{ $asset->systemUnitSpec->videocard }}
                             @elseif ($asset->asset_type === 'monitor')
                                 <div>Size: {{ $asset->monitorSpec->size }}</div>
+                            @else
+                                <div>NA</div>
                             @endif
                         </td>
-                        <td class="px-6 py-4">{{ $asset->status }}</td>
+                        <td class="px-6 py-4"><div class=" text-center text-black rounded-lg py-1 {{ $asset->status === 'assigned' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white' }}">{{ $asset->status }}</div></td>
                         <td class="px-6 py-4 relative no-print">
                           <button @click="open = !open" class="px-3 py-1 rounded-md hover:bg-gray-100">
                               ⋮
                           </button>
 
                           <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute right-14 top-3 py-2 px-3 flex justify-center items-center gap-2 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                              <button @click="dl = true" class="text-red-500 hover:bg-gray-200 hover:rounded-lg px-2">Delete</button>
+                              @can('view-page')
+                                <button @click="dl = true" class="text-red-500 hover:bg-gray-200 hover:rounded-lg px-2">Delete</button>
+                              @endcan
                               <a href="/asset/update/{{ $asset->id }}" class=" hover:bg-gray-200 hover:rounded-lg px-2">Edit</a>
                               <a href="/inventory/result/{{ $asset->id }}" class="text-green-500 hover:rounded-lg hover:bg-gray-200 px-2">View</a>
                           </div>
@@ -242,6 +265,7 @@
           visibility: hidden;
           font-size: 10px !important;
       }
+      
 
       .print-date {
           display: block;
