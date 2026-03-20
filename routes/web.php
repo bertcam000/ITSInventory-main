@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Models\Campus;
 use App\Models\PcAssignment;
 use Illuminate\Support\Facades\Route;
@@ -53,7 +54,9 @@ Route::middleware('auth')->group(function() {
     Route::put('/assigned-ap/{pcAssignment}', [APController::class, 'update'])->name('access-point-assignments.destroy');
 
     // Account
-    Route::view('/accounts', 'pages.account.index');
+    // Route::view('/accounts', 'pages.account.index')->can('view-page');
+    Route::get('/accounts', [AccountController::class, 'index'])->can('view-page');
+    Route::delete('/user/delete/{user}', [AccountController::class, 'destroy'])->can('view-page');
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

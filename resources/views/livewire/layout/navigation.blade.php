@@ -26,7 +26,7 @@ new class extends Component
             </div>
             <div x-show="sidebarOpen" class="flex-1 min-w-0">
                 <p  class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                <p class="text-xs text-gray-500 truncate">Admin Manager</p>
+                <p class="text-xs text-gray-500 truncate">{{ Auth::user()->role }}</p>
             </div>
         </div>
     </a>

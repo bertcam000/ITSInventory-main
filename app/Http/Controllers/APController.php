@@ -6,6 +6,7 @@ use App\Models\Campus;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\AccessPointAssignment;
+use App\Models\Department;
 
 class APController extends Controller
 {
@@ -16,19 +17,19 @@ class APController extends Controller
     {
         $query = AccessPointAssignment::with([
             'asset',
-            'location.campus'
+            'department.campus'
         ]);
 
         // Filter by Campus
         if ($request->filled('campus')) {
-            $query->whereHas('location.campus', function ($q) use ($request) {
+            $query->whereHas('department.campus', function ($q) use ($request) {
                 $q->where('id', $request->campus);
             });
         }
 
         // Filter by Department
-        if ($request->filled('location')) {
-            $query->where('location_id', $request->location);
+        if ($request->filled('department')) {
+            $query->where('department_id', $request->location);
         }
 
         // Search Asset Tag
@@ -40,7 +41,7 @@ class APController extends Controller
 
         $assignments = $query->latest()->paginate(10);
 
-        $locations = Location::with('campus')->get();
+        $locations = Department::with('campus')->get();
         $campuses = Campus::all();
 
         return view('pages.assigned_ap.index', [
