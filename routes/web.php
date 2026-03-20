@@ -10,6 +10,7 @@ use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PcAssignmentController;
+use App\Http\Controllers\LocationController;
 
 Route::view('/', 'home.home');
 Route::view('/about', 'home.about');

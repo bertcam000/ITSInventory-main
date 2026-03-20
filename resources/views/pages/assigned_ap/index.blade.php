@@ -83,11 +83,11 @@
 
                                 <option value="">All Departments</option>
 
-                                @foreach($departments as $department)
+                                @foreach($locations as $location)
                                     <option
-                                        value="{{ $department->id }}"
-                                        {{ request('department') == $department->id ? 'selected' : '' }}>
-                                        {{ $department->name }}
+                                        value="{{ $location->id }}"
+                                        {{ request('location') == $location->id ? 'selected' : '' }}>
+                                        {{ $location->name }}
                                     </option>
                                 @endforeach
 
@@ -232,7 +232,7 @@
 
                                                     <form
                                                         method="POST"
-                                                        action="{{ route('access-point-assignments.destroy', $assignment->id) }}">
+                                                        action="{{ route('access-point-assignments.destroy', $assignment->asset_tag) }}">
 
                                                         @csrf
                                                         @method('DELETE')
