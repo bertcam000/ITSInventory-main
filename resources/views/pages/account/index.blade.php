@@ -39,7 +39,7 @@
 
             <!-- USER LIST -->
             <section class="xl:col-span-7">
-                <div class="rounded-3xl bg-white shadow-sm ring-1 ring-slate-200">
+                <div class="rounded-3xl bg-white border border-gray-400/60 shadow-sm ring-1 ring-slate-200">
                     <form action="/accounts" method="GET" class="px-6 py-5 border-b flex justify-between items-center">
                         <h2 class="text-lg font-semibold">Accounts</h2>
                          <div class="flex items-center gap-2">

@@ -179,41 +179,33 @@
             <table class="w-full text-sm">
               <thead class="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Asset</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Campus</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Asset Tag</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">System Unit</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Monitor</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Assigned To</th>
                   <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Department</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Status</th>
-                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Last Updated</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Assigned At</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Action</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Made By</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Updated At</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">
+                @forelse ($histories as $history)
                 <tr class="hover:bg-gray-50 transition-colors">
-                  <td class="px-6 py-4 font-medium text-gray-900">Dell Laptop - IT-001</td>
-                  <td class="px-6 py-4 text-gray-600">Main Campus</td>
-                  <td class="px-6 py-4 text-gray-600">IT Department</td>
-                  <td class="px-6 py-4">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
-                  </td>
-                  <td class="px-6 py-4 text-gray-600">2 hours ago</td>
+                  <td class="px-6 py-4 font-medium text-gray-900">{{ $history->asset_tag }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->systemUnit->serial_number }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->monitor->serial_number }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->assignment->assigned_to }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->department->name }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->department->campus->name }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->action }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->user->name }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->updated_at->diffForHumans() }}</td>
                 </tr>
-                <tr class="hover:bg-gray-50 transition-colors">
-                  <td class="px-6 py-4 font-medium text-gray-900">HP Printer - PR-045</td>
-                  <td class="px-6 py-4 text-gray-600">Annex Campus</td>
-                  <td class="px-6 py-4 text-gray-600">Administration</td>
-                  <td class="px-6 py-4">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Maintenance</span>
-                  </td>
-                  <td class="px-6 py-4 text-gray-600">5 hours ago</td>
-                </tr>
-                <tr class="hover:bg-gray-50 transition-colors">
-                  <td class="px-6 py-4 font-medium text-gray-900">Desktop PC - PC-128</td>
-                  <td class="px-6 py-4 text-gray-600">MV Campus</td>
-                  <td class="px-6 py-4 text-gray-600">Academic</td>
-                  <td class="px-6 py-4">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
-                  </td>
-                  <td class="px-6 py-4 text-gray-600">1 day ago</td>
-                </tr>
+                @empty
+                  
+                @endforelse
               </tbody>
             </table>
           </div>

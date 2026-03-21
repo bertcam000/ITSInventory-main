@@ -225,7 +225,7 @@ new class extends Component {
         <!-- SUBMIT -->
         <div class="flex justify-end mt-6">
             <button type="submit"
-                    class="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800">
+                    class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-800">
                 Assign PC
             </button>
         </div>

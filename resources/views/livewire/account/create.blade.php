@@ -86,7 +86,7 @@ new class extends Component {
             wire:model="password"
             readonly
             class="w-full border rounded-lg border-gray-400/60 bg-gray-100 px-4 py-2 text-gray-700"
-            placeholder="Password will appear here"
+            placeholder="Password"
         >
         <p class="mt-1 text-xs text-gray-500">
             Format: username + first letter of full name

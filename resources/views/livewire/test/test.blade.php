@@ -100,7 +100,7 @@ new class extends Component {
             <select wire:model.live="asset_type"
                     class="w-full rounded border-gray-300">
                 <option value="">Select type</option>
-                <option value="pc">PC</option>
+                <option value="pc">System Unit</option>
                 <option value="monitor">Monitor</option>
                 <option value="laptop">Laptop</option>
                 <option value="access_point">Access Point</option>
@@ -117,12 +117,12 @@ new class extends Component {
 
             <div>
                 <label class="block text-sm font-medium">Brand</label>
-                <input type="text" wire:model="brand" class="w-full rounded border-gray-300 @error('brand') border-red-500 @enderror" placeholder="ex. Dell">
+                <input type="text" wire:model="brand" name="brand" class="w-full rounded border-gray-300 @error('brand') border-red-500 @enderror" placeholder="ex. Dell" autofocus autocomplete="brand">
             </div>
 
             <div>
                 <label class="block text-sm font-medium">Model</label>
-                <input type="text" wire:model="model" class="w-full rounded border-gray-300" placeholder="ex. OptiPlex 5080">
+                <input type="text" wire:model="model" name="model" class="w-full rounded border-gray-300" placeholder="ex. OptiPlex 5080" autofocus autocomplete="model">
             </div>
         </div>
 
@@ -130,18 +130,17 @@ new class extends Component {
             <div class="border rounded p-4 bg-gray-50 space-y-3">
                 <h3 class="font-medium">PC Specifications</h3>
 
-                <input type="text" wire:model="processor" placeholder="Processor" class="w-full rounded border-gray-300">
-                <input type="text" wire:model="memory" placeholder="Memory (e.g. 16GB)" class="w-full rounded border-gray-300">
-                <input type="text" wire:model="storage" placeholder="Storage (e.g. 512GB SSD)" class="w-full rounded border-gray-300">
-                <input type="text" wire:model="videocard" placeholder="Video Card (optional)" class="w-full rounded border-gray-300">
+                <input type="text" wire:model="processor" name="processor" placeholder="Processor" class="w-full rounded border-gray-300" autofocus autocomplete="processor">
+                <input type="text" wire:model="memory" name="memory" placeholder="Memory (e.g. 16GB)" class="w-full rounded border-gray-300" autofocus autocomplete="memory">
+                <input type="text" wire:model="storage" name="storage" placeholder="Storage (e.g. 512GB SSD)" class="w-full rounded border-gray-300" autofocus autocomplete="storage">
+                <input type="text" wire:model="videocard" name="videocard" placeholder="Video Card (optional)" class="w-full rounded border-gray-300" autofocus autocomplete="videocard">
             </div>
         @endif
 
         @if ($asset_type === 'monitor')
             <div class="border rounded p-4 bg-gray-50 space-y-3">
                 <h3 class="font-medium">Monitor Specifications</h3>
-
-                <input type="text" wire:model="size" placeholder="Size (e.g. 24 inch)" class="w-full rounded border-gray-300">
+                <input type="text" wire:model="size" name="size" placeholder="Size (e.g. 24 inch)" class="w-full rounded border-gray-300" autofocus autocomplete="size">
             </div>
         @endif
 

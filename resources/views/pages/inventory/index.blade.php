@@ -145,7 +145,7 @@
                                 <div>NA</div>
                             @endif
                         </td>
-                        <td class="px-6 py-4"><div class=" text-center text-black rounded-lg py-1 {{ $asset->status === 'assigned' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white' }}">{{ $asset->status }}</div></td>
+                        <td class="px-6 py-4"><div class=" text-center text-black rounded-lg py-1 {{ $asset->status === 'assigned' ? 'bg-blue-300 text-blue-900 font-semibold' : 'bg-green-300 text-green-900 font-semibold' }}">{{ $asset->status }}</div></td>
                         <td class="px-6 py-4 relative no-print">
                           <button @click="open = !open" class="px-3 py-1 rounded-md hover:bg-gray-100">
                               ⋮

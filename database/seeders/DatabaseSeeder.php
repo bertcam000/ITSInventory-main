@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
 
         // Department::factory(4)->create();
         User::factory()->create([
-            'name' => 'Test User',
-            'username' => 'bert',
+            'name' => 'Admin User',
+            'username' => 'admin',
             'role' => 'admin'
         ]);
     }

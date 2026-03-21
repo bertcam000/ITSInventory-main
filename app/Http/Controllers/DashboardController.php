@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\Campus;
 use App\Models\Department;
 use App\Models\PcAssignment;
+use App\Models\PcAssignmentHistory;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -17,6 +18,15 @@ class DashboardController extends Controller
     public function index()
     {
 
+        $histories = PcAssignmentHistory::with(
+            [
+                'assignment',
+                'department',
+                'systemUnit',
+                'monitor',
+                'user'
+            ]
+        )->latest()->paginate(5);
         $totalAssets = Asset::count();
         $activeDevices = Asset::where('status', 'assigned')->count();
         $underMaintenance = Asset::where('status', 'maintenance')->count();
@@ -72,7 +82,8 @@ class DashboardController extends Controller
             'assetsByCampus',
             'assetsByDepartment',
             'recentAssignments',
-            'maxCampusTotal'
+            'maxCampusTotal',
+            'histories'
         ));
     }
 

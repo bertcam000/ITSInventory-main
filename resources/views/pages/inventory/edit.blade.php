@@ -26,7 +26,7 @@
               Cancel
             </button>
             <button type="submit" form="editAssetForm"
-              class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800">
+              class="inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white">
               Save Changes
               <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M20 6L9 17l-5-5"></path>

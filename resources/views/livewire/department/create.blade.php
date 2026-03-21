@@ -67,7 +67,7 @@ new class extends Component {
         <div class="flex justify-end">
             <button
                 type="submit"
-                class="px-5 py-2 text-sm font-medium bg-gray-900 text-white bg-black rounded-lg hover:bg-gray-800 transition"
+                class="px-5 py-2 text-sm font-medium bg-gray-900 text-white bg-primary rounded-lg hover:bg-gray-800 transition"
             >
                 Add Department
             </button>

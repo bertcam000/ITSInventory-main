@@ -8,13 +8,24 @@
 
         <section class="space-y-6">
 
-            <div>
+            {{-- <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
                     Access Point Assignment
                 </h1>
             </div>
 
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <button
+                    @click="form = true"
+                    class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryDark transition-colors text-sm font-medium">
+                    + Assign Access Point
+                </button>
+            </div> --}}
+
+            <div class=" lg:flex justify-between items-center">
+                <div class='space-y-1'>
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Access Point Assignment</h1>
+                </div>
                 <button
                     @click="form = true"
                     class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primaryDark transition-colors text-sm font-medium">
