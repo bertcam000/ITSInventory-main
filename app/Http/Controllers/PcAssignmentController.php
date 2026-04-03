@@ -90,7 +90,8 @@ class PcAssignmentController extends Controller
             'monitor.monitorSpec', 
             'department.campus', 
             'histories.SystemUnit',
-            'histories.monitor',]);
+            'histories.monitor',
+            'histories.user',]);
         
         return view('pages.assigned_pc.show', compact('pcAssignment'));
     }
@@ -169,7 +170,7 @@ class PcAssignmentController extends Controller
 
             PcAssignmentHistory::create([
                 'pc_assignment_id' => $pcAssignment->id,
-                'asset_id' => $request->asset_id,
+                'asset_tag' => $pcAssignment->asset_tag,
                 'department_id' => $request->department_id,
                 'system_unit_id' => $request->system_unit_id,
                 'monitor_id' => $request->monitor_id,

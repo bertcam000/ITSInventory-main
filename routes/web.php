@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\AccountController;
 use App\Models\Campus;
 use App\Models\PcAssignment;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PcAssignmentController;
-use App\Http\Controllers\LocationController;
 
 Route::view('/', 'home.home');
 Route::view('/about', 'home.about');
@@ -60,6 +61,19 @@ Route::middleware('auth')->group(function() {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Stocks
+    Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
+    Route::post('/stocks', [StockController::class, 'store'])->name('stocks.store');
+    Route::post('/stocks/{stock}/stock-in', [StockController::class, 'stockIn'])->name('stocks.stock-in');
+    Route::post('/stocks/{stock}/stock-out', [StockController::class, 'stockOut'])->name('stocks.stock-out');
+    Route::post('/stocks/{stock}/adjust', [StockController::class, 'adjustStock'])->name('stocks.adjust');
+    Route::get('/stocks/{stock}/history', [StockController::class, 'history'])->name('stocks.history');
+    Route::get('/stocks/{stock}/edit', [StockController::class, 'edit'])->name('stocks.edit');
+    Route::put('/stocks/{stock}', [StockController::class, 'update'])->name('stocks.update');
+    Route::get('/stocks/reports/inventory', [StockController::class, 'inventoryReport'])->name('stocks.reports.inventory');
+    Route::get('/stocks/reports/low-stock', [StockController::class, 'lowStockReport'])->name('stocks.reports.low-stock');
+    Route::get('/stocks/reports/movement', [StockController::class, 'movementReport'])->name('stocks.reports.movement');
 
 });
 

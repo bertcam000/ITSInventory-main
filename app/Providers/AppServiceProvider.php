@@ -6,6 +6,7 @@ use App\Models\Campus;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +23,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::share(
-            'campuses',
-            cache()->remember('campuses', 3600, function () {
-                return Campus::orderBy('name')->get();
-            })
-        );
+        // View::share(
+        //     'campuses',
+        //     cache()->remember('campuses', 3600, function () {
+        //         return Campus::orderBy('name')->get();
+        //     })
+        // );
+
+        Paginator::useTailwind();
 
         Gate::define('view-page', function (User $user) {
             return $user->role === 'admin';

@@ -196,12 +196,12 @@
                   <td class="px-6 py-4 font-medium text-gray-900">{{ $history->asset_tag }}</td>
                   <td class="px-6 py-4 text-gray-600">{{ $history->systemUnit->serial_number }}</td>
                   <td class="px-6 py-4 text-gray-600">{{ $history->monitor->serial_number }}</td>
-                  <td class="px-6 py-4 text-gray-600">{{ $history->assignment->assigned_to }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->assignment->assigned_to ?? 'N/A' }}</td>
                   <td class="px-6 py-4 text-gray-600">{{ $history->department->name }}</td>
                   <td class="px-6 py-4 text-gray-600">{{ $history->department->campus->name }}</td>
                   <td class="px-6 py-4 text-gray-600">{{ $history->action }}</td>
                   <td class="px-6 py-4 text-gray-600">{{ $history->user->name }}</td>
-                  <td class="px-6 py-4 text-gray-600">{{ $history->updated_at->diffForHumans() }}</td>
+                  <td class="px-6 py-4 text-gray-600">{{ $history->updated_at->format('M d, Y H:i A') }}</td>
                 </tr>
                 @empty
                   

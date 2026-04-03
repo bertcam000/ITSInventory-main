@@ -13,7 +13,7 @@
             </p>
         </div>
 
-        <form action="/assigned-pc/{{ $assignment->id }}" method="POST" class="space-y-6">
+        <form action="/assigned-pc/{{ $assignment->asset_tag }}" method="POST" class="space-y-6">
 
             @csrf
             @method('PUT')

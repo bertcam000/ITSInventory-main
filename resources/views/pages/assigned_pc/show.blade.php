@@ -285,6 +285,7 @@
                   <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Assigned At</th>
                   <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Action</th>
                   <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Updated At</th>
+                  <th class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Updated By</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">
@@ -295,9 +296,10 @@
                     <td class="px-6 py-4 text-gray-600">{{ $history->systemUnit->serial_number }}</td>
                     <td class="px-6 py-4 text-gray-600">{{ $history->monitor->serial_number }}</td>
                     <td class="px-6 py-4 text-gray-600">{{ $history->assigned_to }}</td>
-                    <td class="px-6 py-4 text-gray-600">{{ $history->assigned_at->diffForHumans() }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->assigned_at->format('M d, Y H:i A') }}</td>
                     <td class="px-6 py-4 text-gray-600">{{ $history->action }}</td>
-                    <td class="px-6 py-4 text-gray-600">{{ $history->updated_at->diffForHumans() }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->updated_at->format('M d, Y H:i A') }}</td>
+                    <td class="px-6 py-4 text-gray-600">{{ $history->user->name }}</td>
                   </tr>
                 @empty
                   

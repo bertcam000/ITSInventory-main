@@ -110,7 +110,7 @@
                                         Cancel
                                     </button>
 
-                                    <form method="POST" action="{{ route('assigned-pc.destroy', $assignment->id) }}">
+                                    <form method="POST" action="{{ route('assigned-pc.destroy', $assignment->asset_tag) }}">
                                         @csrf
                                         @method('DELETE')
 
